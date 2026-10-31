@@ -373,8 +373,8 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
       {/* Create Plan Modal */}
       {showPlanModal && (
-        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-lg w-full p-6 space-y-4 my-8 border border-gold-400">
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-lg w-full p-6 space-y-4 my-8 border border-gold-400 animate-scale-in">
             <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
               <h3 className="text-xl font-serif font-black text-burgundy-950">Define New Billing Plan</h3>
               <button onClick={() => setShowPlanModal(false)} className="text-burgundy-800 font-bold text-lg">✕</button>
@@ -526,8 +526,8 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
       {/* Create Discount Modal */}
       {showDiscountModal && (
-        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-lg w-full p-6 space-y-4 my-8 border border-gold-400">
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-lg w-full p-6 space-y-4 my-8 border border-gold-400 animate-scale-in">
             <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
               <h3 className="text-xl font-serif font-black text-burgundy-950">Create Admin Discount Rule</h3>
               <button onClick={() => setShowDiscountModal(false)} className="text-burgundy-800 font-bold">✕</button>
@@ -688,8 +688,8 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
       {/* Tax Modal */}
       {showTaxModal && (
-        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-sm w-full p-6 space-y-4 border border-gold-400">
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-sm w-full p-6 space-y-4 border border-gold-400 animate-scale-in">
             <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
               <h3 className="text-base font-serif font-black text-burgundy-950">Add Tax Rule</h3>
               <button onClick={() => setShowTaxModal(false)} className="text-burgundy-800 font-bold">✕</button>

@@ -131,46 +131,46 @@ export const Navbar: React.FC<NavbarProps> = ({
               <>
                 <button
                   onClick={() => onTabChange('finance')}
-                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition duration-200 border ${
+                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                     currentTab === 'finance'
-                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle'
-                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent'
+                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle -translate-y-0.5'
+                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent hover:-translate-y-0.5'
                   }`}
                 >
-                  <BarChart3 className={`w-4 h-4 ${currentTab === 'finance' ? 'text-burgundy-800' : 'text-gold-400'}`} />
+                  <BarChart3 className={`w-4 h-4 transition-colors ${currentTab === 'finance' ? 'text-burgundy-800' : 'text-gold-400'}`} />
                   <span>Finance & Ledger</span>
                 </button>
 
                 <button
                   onClick={() => onTabChange('subscriptions')}
-                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition duration-200 border ${
+                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                     currentTab === 'subscriptions'
-                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle'
-                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent'
+                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle -translate-y-0.5'
+                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent hover:-translate-y-0.5'
                   }`}
                 >
-                  <Layers className={`w-4 h-4 ${currentTab === 'subscriptions' ? 'text-burgundy-800' : 'text-gold-400'}`} />
+                  <Layers className={`w-4 h-4 transition-colors ${currentTab === 'subscriptions' ? 'text-burgundy-800' : 'text-gold-400'}`} />
                   <span>Subscriptions & Quotes</span>
                 </button>
 
                 <button
                   onClick={() => onTabChange('invoices')}
-                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition duration-200 border ${
+                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                     currentTab === 'invoices'
-                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle'
-                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent'
+                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle -translate-y-0.5'
+                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent hover:-translate-y-0.5'
                   }`}
                 >
-                  <FileText className={`w-4 h-4 ${currentTab === 'invoices' ? 'text-burgundy-800' : 'text-gold-400'}`} />
+                  <FileText className={`w-4 h-4 transition-colors ${currentTab === 'invoices' ? 'text-burgundy-800' : 'text-gold-400'}`} />
                   <span>Invoices & Payments</span>
                 </button>
 
                 <button
                   onClick={() => onTabChange('products')}
-                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition duration-200 border ${
+                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                     currentTab === 'products'
-                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle'
-                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent'
+                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle -translate-y-0.5'
+                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent hover:-translate-y-0.5'
                   }`}
                 >
                   <Box className={`w-4 h-4 ${currentTab === 'products' ? 'text-burgundy-800' : 'text-gold-400'}`} />
@@ -179,26 +179,26 @@ export const Navbar: React.FC<NavbarProps> = ({
 
                 <button
                   onClick={() => onTabChange('plans')}
-                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition duration-200 border ${
+                  className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                     currentTab === 'plans'
-                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle'
-                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent'
+                      ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle -translate-y-0.5'
+                      : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent hover:-translate-y-0.5'
                   }`}
                 >
-                  <Sliders className={`w-4 h-4 ${currentTab === 'plans' ? 'text-burgundy-800' : 'text-gold-400'}`} />
+                  <Sliders className={`w-4 h-4 transition-colors ${currentTab === 'plans' ? 'text-burgundy-800' : 'text-gold-400'}`} />
                   <span>Plans & Discounts</span>
                 </button>
 
                 {isAdmin && (
                   <button
                     onClick={() => onTabChange('staff')}
-                    className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition duration-200 border ${
+                    className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                       currentTab === 'staff'
-                        ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle'
-                        : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent'
+                        ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle -translate-y-0.5'
+                        : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent hover:-translate-y-0.5'
                     }`}
                   >
-                    <ShieldCheck className={`w-4 h-4 ${currentTab === 'staff' ? 'text-burgundy-800' : 'text-gold-400'}`} />
+                    <ShieldCheck className={`w-4 h-4 transition-colors ${currentTab === 'staff' ? 'text-burgundy-800' : 'text-gold-400'}`} />
                     <span>Staff Team</span>
                   </button>
                 )}
@@ -208,13 +208,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             {isCustomer && (
               <button
                 onClick={() => onTabChange('portal')}
-                className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition duration-200 border ${
+                className={`flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs sm:text-sm font-semibold transition-all duration-300 ease-out active:scale-95 border ${
                   currentTab === 'portal'
-                    ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle'
-                    : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent'
+                    ? 'bg-cream-50 text-burgundy-950 border-gold-400 shadow-gold-subtle -translate-y-0.5'
+                    : 'text-cream-200 hover:text-gold-300 hover:bg-burgundy-800/60 border-transparent hover:-translate-y-0.5'
                 }`}
               >
-                <UserCircle className={`w-4 h-4 ${currentTab === 'portal' ? 'text-burgundy-800' : 'text-gold-400'}`} />
+                <UserCircle className={`w-4 h-4 transition-colors ${currentTab === 'portal' ? 'text-burgundy-800' : 'text-gold-400'}`} />
                 <span>Customer Portal</span>
               </button>
             )}

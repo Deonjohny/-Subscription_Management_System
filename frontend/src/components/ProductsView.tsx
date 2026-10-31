@@ -185,8 +185,8 @@ export const ProductsView: React.FC<ProductsViewProps> = ({ currentUser }) => {
 
       {/* Create Product Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-xl w-full p-6 space-y-4 my-8 border border-gold-400">
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-xl w-full p-6 space-y-4 my-8 border border-gold-400 animate-scale-in">
             <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
               <h3 className="text-xl font-serif font-black text-burgundy-950">Add New Product & Variants</h3>
               <button onClick={() => setShowCreateModal(false)} className="text-burgundy-800 font-bold text-lg">✕</button>
@@ -343,8 +343,8 @@ export const ProductsView: React.FC<ProductsViewProps> = ({ currentUser }) => {
 
       {/* Add Variant to Existing Product Modal */}
       {selectedProductForVariant && (
-        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-sm w-full p-6 space-y-4 border border-gold-400">
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-sm w-full p-6 space-y-4 border border-gold-400 animate-scale-in">
             <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
               <div>
                 <h3 className="text-base font-serif font-black text-burgundy-950">Add Surcharge Variant</h3>

@@ -119,33 +119,35 @@ export const App: React.FC = () => {
           />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {currentUser.role === 'customer' ? (
-          <CustomerPortal currentUser={currentUser} />
-        ) : (
-          <>
-            {currentTab === 'finance' && (
-              <FinanceDashboard onNavigateToInvoice={navigateToInvoice} />
-            )}
-            {currentTab === 'subscriptions' && (
-              <SubscriptionsView
-                currentUser={currentUser}
-                onNavigateToInvoice={navigateToInvoice}
-              />
-            )}
-            {currentTab === 'invoices' && (
-              <InvoicesView initialInvoiceId={targetInvoiceId} />
-            )}
-            {currentTab === 'products' && (
-              <ProductsView currentUser={currentUser} />
-            )}
-            {currentTab === 'plans' && (
-              <PlansDiscountsView currentUser={currentUser} />
-            )}
-            {currentTab === 'staff' && (
-              <StaffManagerView currentUser={currentUser} />
-            )}
-          </>
-        )}
+        <div key={currentTab} className="animate-fade-in-up">
+          {currentUser.role === 'customer' ? (
+            <CustomerPortal currentUser={currentUser} />
+          ) : (
+            <>
+              {currentTab === 'finance' && (
+                <FinanceDashboard onNavigateToInvoice={navigateToInvoice} />
+              )}
+              {currentTab === 'subscriptions' && (
+                <SubscriptionsView
+                  currentUser={currentUser}
+                  onNavigateToInvoice={navigateToInvoice}
+                />
+              )}
+              {currentTab === 'invoices' && (
+                <InvoicesView initialInvoiceId={targetInvoiceId} />
+              )}
+              {currentTab === 'products' && (
+                <ProductsView currentUser={currentUser} />
+              )}
+              {currentTab === 'plans' && (
+                <PlansDiscountsView currentUser={currentUser} />
+              )}
+              {currentTab === 'staff' && (
+                <StaffManagerView currentUser={currentUser} />
+              )}
+            </>
+          )}
+        </div>
       </main>
 
       <footer className="bg-gradient-to-r from-burgundy-950 via-burgundy-900 to-burgundy-950 border-t border-gold-500/30 py-4.5 text-center text-xs text-cream-200/80 font-serif">

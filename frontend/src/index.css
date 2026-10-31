@@ -65,9 +65,119 @@
   background: #FFFDF9;
   border: 1px solid rgba(212, 175, 55, 0.25);
   box-shadow: 0 4px 20px rgba(44, 6, 12, 0.05), 0 0 0 1px rgba(212, 175, 55, 0.15);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .cream-card:hover {
   border-color: rgba(212, 175, 55, 0.5);
   box-shadow: 0 8px 30px rgba(44, 6, 12, 0.1), 0 0 15px rgba(212, 175, 55, 0.2);
+  transform: translateY(-2px);
+}
+
+/* ========================================================
+   CINEMATIC TRANSITIONS & KEYFRAME ANIMATIONS
+   ======================================================== */
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.94) translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes pulseGoldGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.2), inset 0 0 8px rgba(212, 175, 55, 0.1);
+  }
+  50% {
+    box-shadow: 0 0 22px rgba(212, 175, 55, 0.45), inset 0 0 14px rgba(212, 175, 55, 0.25);
+  }
+}
+
+/* Reusable Animation Utility Classes */
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in-down {
+  animation: fadeInDown 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out both;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.pulse-gold {
+  animation: pulseGoldGlow 3s infinite ease-in-out;
+}
+
+/* Smooth Interactive Elements */
+.interactive-row {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.interactive-row:hover {
+  background-color: rgba(212, 175, 55, 0.06);
+  transform: translateX(3px);
+}
+
+.btn-luxury {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-luxury:hover {
+  transform: translateY(-1.5px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.35);
+}
+
+.btn-luxury:active {
+  transform: translateY(0.5px) scale(0.98);
 }

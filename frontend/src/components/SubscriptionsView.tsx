@@ -320,7 +320,7 @@ export const SubscriptionsView: React.FC<SubscriptionsViewProps> = ({ currentUse
                   Closed: 'bg-rose-100 text-rose-900 border-rose-300',
                 };
                 return (
-                  <tr key={sub.id} className="hover:bg-gold-50/40 transition">
+                  <tr key={sub.id} className="interactive-row cursor-pointer" onClick={() => setSelectedSub(sub)}>
                     <td className="py-4 px-4.5 font-mono font-bold text-burgundy-950">
                       {sub.subscription_number}
                     </td>
@@ -374,8 +374,8 @@ export const SubscriptionsView: React.FC<SubscriptionsViewProps> = ({ currentUse
 
       {/* Subscription Detail / State Transition Modal */}
       {selectedSub && (
-        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-3xl w-full p-6 space-y-6 my-8 border border-gold-400">
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-3xl w-full p-6 space-y-6 my-8 border border-gold-400 animate-scale-in">
             <div className="flex justify-between items-start border-b border-gold-500/20 pb-4">
               <div>
                 <span className="text-xs font-mono font-bold text-burgundy-950 bg-gold-200/60 px-2.5 py-0.5 rounded border border-gold-400/60">
@@ -568,8 +568,8 @@ export const SubscriptionsView: React.FC<SubscriptionsViewProps> = ({ currentUse
 
       {/* New Quote / Subscription Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-3xl w-full p-6 space-y-5 my-8 border border-gold-400">
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-3xl w-full p-6 space-y-5 my-8 border border-gold-400 animate-scale-in">
             <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
               <div>
                 <h2 className="text-2xl font-serif font-black text-burgundy-950">Prepare Quotation / Subscription</h2>

@@ -132,7 +132,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-burgundy-600/20 rounded-full blur-3xl pointer-events-none"></div>
 
-      <div className="max-w-md w-full cream-card rounded-3xl shadow-cinematic-lg overflow-hidden border border-gold-400 relative z-10">
+      <div className="max-w-md w-full cream-card rounded-3xl shadow-cinematic-lg overflow-hidden border border-gold-400 relative z-10 animate-scale-in">
         {/* Header with Regal Monogram */}
         <div className="bg-gradient-to-br from-burgundy-950 via-burgundy-900 to-burgundy-950 p-7 text-center border-b border-gold-500/30">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-gold-300 via-gold-500 to-gold-700 p-[1.5px] mx-auto shadow-gold-glow">

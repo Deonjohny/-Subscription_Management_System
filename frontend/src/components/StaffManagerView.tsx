@@ -160,8 +160,8 @@ export const StaffManagerView: React.FC<StaffManagerViewProps> = ({ currentUser 
 
       {/* Add Staff Modal */}
       {showModal && (
-        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
-          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-md w-full p-6 space-y-4 border border-gold-400">
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-md w-full p-6 space-y-4 border border-gold-400 animate-scale-in">
             <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
               <h3 className="text-xl font-serif font-black text-burgundy-950">Onboard Internal Staff</h3>
               <button onClick={() => setShowModal(false)} className="text-burgundy-800 font-bold text-lg">✕</button>
