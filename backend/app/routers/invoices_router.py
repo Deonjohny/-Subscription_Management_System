@@ -122,11 +122,11 @@ def print_invoice(
     ])
 
     status_badge_color = {
-        "Draft": "#64748b",
-        "Confirmed": "#0284c7",
-        "Paid": "#16a34a",
-        "Cancelled": "#dc2626"
-    }.get(inv.status, "#64748b")
+        "Draft": "#78350f",
+        "Confirmed": "#1e3a8a",
+        "Paid": "#14532d",
+        "Cancelled": "#7f1d1d"
+    }.get(inv.status, "#475569")
 
     html_content = f"""
     <!DOCTYPE html>
@@ -134,48 +134,66 @@ def print_invoice(
     <head>
         <meta charset="UTF-8">
         <title>Invoice {inv.invoice_number} - Brightloop Software</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
         <style>
             body {{
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 margin: 0;
                 padding: 40px;
-                color: #1e293b;
-                background-color: #ffffff;
+                color: #2C060C;
+                background-color: #FAF5EC;
+            }}
+            .invoice-wrapper {{
+                max-width: 860px;
+                margin: 0 auto;
+                background: #FFFDF9;
+                border: 2px solid #D4AF37;
+                border-radius: 12px;
+                padding: 40px;
+                box-shadow: 0 10px 30px rgba(78, 12, 23, 0.08);
             }}
             .header {{
                 display: flex;
                 justify-content: space-between;
                 align-items: flex-start;
-                border-bottom: 3px solid #714b67;
+                border-bottom: 2px solid #E5C365;
                 padding-bottom: 24px;
                 margin-bottom: 30px;
             }}
             .logo {{
+                font-family: 'Cinzel', serif;
                 font-size: 28px;
                 font-weight: 800;
-                color: #714b67;
-                letter-spacing: -0.5px;
+                color: #2C060C;
+                letter-spacing: 1.5px;
             }}
             .logo span {{
-                color: #017e84;
+                color: #B38F26;
             }}
             .invoice-title {{
                 text-align: right;
             }}
             .invoice-title h1 {{
                 margin: 0;
+                font-family: 'Cinzel', serif;
                 font-size: 26px;
-                color: #0f172a;
+                color: #2C060C;
+                letter-spacing: 2px;
             }}
             .badge {{
                 display: inline-block;
-                padding: 4px 12px;
+                padding: 4px 14px;
                 border-radius: 9999px;
-                color: white;
+                color: #FFFDF9;
                 background-color: {status_badge_color};
-                font-size: 13px;
-                font-weight: bold;
+                font-size: 12px;
+                font-weight: 700;
+                letter-spacing: 1px;
+                text-transform: uppercase;
                 margin-top: 6px;
+                border: 1px solid rgba(212, 175, 55, 0.4);
             }}
             .info-grid {{
                 display: grid;
@@ -184,11 +202,14 @@ def print_invoice(
                 margin-bottom: 35px;
             }}
             .info-box h3 {{
-                font-size: 14px;
+                font-family: 'Cinzel', serif;
+                font-size: 13px;
                 text-transform: uppercase;
-                letter-spacing: 0.5px;
-                color: #64748b;
+                letter-spacing: 1px;
+                color: #B38F26;
                 margin-bottom: 8px;
+                border-bottom: 1px solid #F1D885;
+                padding-bottom: 4px;
             }}
             table {{
                 width: 100%;
@@ -196,57 +217,79 @@ def print_invoice(
                 margin-bottom: 30px;
             }}
             th {{
-                background-color: #f8fafc;
-                padding: 12px 8px;
-                font-size: 13px;
+                background-color: #FAF5EC;
+                padding: 12px 10px;
+                font-family: 'Cinzel', serif;
+                font-size: 11px;
                 text-transform: uppercase;
-                color: #475569;
-                border-bottom: 2px solid #cbd5e1;
+                letter-spacing: 1px;
+                color: #4E0C17;
+                border-top: 1px solid #D4AF37;
+                border-bottom: 2px solid #D4AF37;
+            }}
+            td {{
+                padding: 12px 10px;
+                border-bottom: 1px solid #F3EBDD;
+                font-size: 13px;
             }}
             .summary-table {{
                 width: 320px;
                 margin-left: auto;
-                margin-bottom: 40px;
+                margin-bottom: 30px;
+                background: #FAF5EC;
+                border-radius: 8px;
+                border: 1px solid #E5C365;
             }}
             .summary-table td {{
-                padding: 8px 12px;
+                padding: 8px 14px;
+                border: none;
             }}
             .total-row td {{
-                font-size: 18px;
-                font-weight: bold;
-                border-top: 2px solid #0f172a;
-                color: #714b67;
+                font-family: 'Cinzel', serif;
+                font-size: 16px;
+                font-weight: 700;
+                border-top: 2px solid #D4AF37 !important;
+                color: #2C060C;
+                background: #F3EBDD;
             }}
             .print-btn {{
-                background-color: #714b67;
-                color: white;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 6px;
+                background: linear-gradient(135deg, #4E0C17, #2C060C);
+                color: #FAF5EC;
+                padding: 10px 22px;
+                border: 1px solid #D4AF37;
+                border-radius: 8px;
                 cursor: pointer;
-                font-size: 14px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: 0.5px;
                 margin-bottom: 20px;
+                box-shadow: 0 4px 12px rgba(44, 6, 12, 0.2);
+            }}
+            .print-btn:hover {{
+                background: #6A1422;
             }}
             @media print {{
                 .print-btn {{ display: none; }}
-                body {{ padding: 0; }}
+                body {{ padding: 0; background: white; }}
+                .invoice-wrapper {{ border: none; box-shadow: none; padding: 0; }}
             }}
         </style>
     </head>
     <body>
-        <button class="print-btn" onclick="window.print()">🖨️ Print Invoice</button>
-        <div class="header">
-            <div>
-                <div class="logo">Brightloop<span>Software</span></div>
-                <p style="margin: 4px 0; color: #64748b; font-size: 13px;">Cloud Subscriptions & Enterprise Solutions</p>
-                <p style="margin: 4px 0; color: #64748b; font-size: 13px;">billing@brightloop.io | +1 (800) 555-LOOP</p>
+        <div class="invoice-wrapper">
+            <button class="print-btn" onclick="window.print()">🖨️ Print Invoice</button>
+            <div class="header">
+                <div>
+                    <div class="logo">Brightloop<span>Software</span></div>
+                    <p style="margin: 4px 0; color: #4E0C17; font-size: 13px; font-weight: 500;">Cloud Subscriptions & Enterprise Solutions</p>
+                    <p style="margin: 4px 0; color: #7B1123; font-size: 12px;">billing@brightloop.io | +1 (800) 555-LOOP</p>
+                </div>
+                <div class="invoice-title">
+                    <h1>INVOICE</h1>
+                    <div style="font-size: 15px; font-weight: 700; color: #2C060C; margin-top: 4px; letter-spacing: 0.5px;">{inv.invoice_number}</div>
+                    <div class="badge">{inv.status.upper()}</div>
+                </div>
             </div>
-            <div class="invoice-title">
-                <h1>INVOICE</h1>
-                <div style="font-size: 16px; font-weight: bold; color: #334155; margin-top: 4px;">{inv.invoice_number}</div>
-                <div class="badge">{inv.status.upper()}</div>
-            </div>
-        </div>
 
         <div class="info-grid">
             <div class="info-box">
@@ -309,9 +352,10 @@ def print_invoice(
             </tr>
         </table>
 
-        <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; font-size: 13px; color: #64748b;">
+        <div style="border-top: 1px solid #E5C365; padding-top: 20px; font-size: 13px; color: #4E0C17;">
             <p><strong>Payment Terms:</strong> Please settle outstanding balances by due date via Bank Transfer or Portal Credit Card payment.</p>
             <p>Thank you for choosing Brightloop Software!</p>
+        </div>
         </div>
     </body>
     </html>

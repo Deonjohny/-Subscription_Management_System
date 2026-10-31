@@ -40,7 +40,7 @@ export const App: React.FC = () => {
     }
   }, []);
 
-  const handleLoginSuccess = (user: User, token: string) => {
+  const handleLoginSuccess = (user: User, _token: string) => {
     setCurrentUser(user);
     if (user.role === 'customer') {
       setCurrentTab('portal');
@@ -81,10 +81,14 @@ export const App: React.FC = () => {
 
   if (loadingUser) {
     return (
-      <div className="min-h-screen bg-slate-900 flex items-center justify-center text-white">
-        <div className="flex flex-col items-center space-y-3">
-          <div className="w-10 h-10 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-          <span className="text-sm font-semibold text-slate-300">Loading Brightloop OS...</span>
+      <div className="min-h-screen bg-gradient-to-br from-burgundy-950 via-burgundy-900 to-burgundy-950 flex items-center justify-center text-cream-50">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-gold-300 via-gold-500 to-gold-700 p-[1.5px] shadow-gold-glow animate-pulse">
+            <div className="w-full h-full bg-burgundy-950 rounded-[14px] flex items-center justify-center font-serif font-black text-2xl text-gold-300">
+              B
+            </div>
+          </div>
+          <span className="text-sm font-serif font-bold text-gold-300 tracking-wider">Initializing Brightloop Platform...</span>
         </div>
       </div>
     );
@@ -95,7 +99,7 @@ export const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FBF7F0] flex flex-col font-sans selection:bg-gold-500 selection:text-burgundy-950">
       <Navbar
         currentUser={currentUser}
         currentTab={currentTab}
@@ -137,8 +141,16 @@ export const App: React.FC = () => {
         )}
       </main>
 
-      <footer className="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
-        Brightloop Software • Subscription Management & Recurring Billing Platform • Built for Odoo Challenge
+      <footer className="bg-gradient-to-r from-burgundy-950 via-burgundy-900 to-burgundy-950 border-t border-gold-500/30 py-4.5 text-center text-xs text-cream-200/80 font-serif">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+          <div className="flex items-center space-x-2">
+            <span className="font-bold text-gold-300">Brightloop Software</span>
+            <span>• Subscription Management & Recurring Ledger OS</span>
+          </div>
+          <div className="text-gold-400/80 tracking-wide font-mono text-[11px]">
+            Burgundy & Cream Edition • Gold Lined
+          </div>
+        </div>
       </footer>
     </div>
   );

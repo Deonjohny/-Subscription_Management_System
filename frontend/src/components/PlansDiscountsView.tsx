@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { api } from '../api';
 import { Plan, DiscountRule, TaxRule, Product, User } from '../types';
-import {
-  Sliders, Plus, Percent, ShieldCheck, CheckCircle2,
-  Calendar, Layers, Clock, AlertCircle, ToggleLeft, ToggleRight
-} from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 interface PlansDiscountsViewProps {
   currentUser: User | null;
@@ -159,29 +156,31 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Plans, Discounts & Taxes</h1>
-          <p className="text-slate-500 text-sm">
+          <h1 className="text-2xl font-serif font-black text-burgundy-950 tracking-tight">
+            Plans, Discounts & Taxes
+          </h1>
+          <p className="text-cream-700 text-sm">
             Control billing frequencies, lifecycle policies, admin discount rules, and automated tax calculations.
           </p>
         </div>
 
-        {/* Tab switchers */}
-        <div className="flex bg-slate-100 p-1 rounded-lg text-xs font-bold text-slate-600">
+        {/* Tab switchers in Cream & Gold */}
+        <div className="flex bg-cream-100 p-1 rounded-xl text-xs font-serif font-bold text-burgundy-900 border border-gold-500/30">
           <button
             onClick={() => setActiveTab('plans')}
-            className={`px-3 py-1.5 rounded-md transition ${activeTab === 'plans' ? 'bg-white text-purple-900 shadow-sm' : 'hover:text-slate-900'}`}
+            className={`px-3.5 py-1.5 rounded-lg transition ${activeTab === 'plans' ? 'bg-burgundy-900 text-gold-300 shadow-sm border border-gold-400/40' : 'hover:text-burgundy-950'}`}
           >
             Billing Plans ({plans.length})
           </button>
           <button
             onClick={() => setActiveTab('discounts')}
-            className={`px-3 py-1.5 rounded-md transition ${activeTab === 'discounts' ? 'bg-white text-purple-900 shadow-sm' : 'hover:text-slate-900'}`}
+            className={`px-3.5 py-1.5 rounded-lg transition ${activeTab === 'discounts' ? 'bg-burgundy-900 text-gold-300 shadow-sm border border-gold-400/40' : 'hover:text-burgundy-950'}`}
           >
             Discount Rules ({discounts.length})
           </button>
           <button
             onClick={() => setActiveTab('taxes')}
-            className={`px-3 py-1.5 rounded-md transition ${activeTab === 'taxes' ? 'bg-white text-purple-900 shadow-sm' : 'hover:text-slate-900'}`}
+            className={`px-3.5 py-1.5 rounded-lg transition ${activeTab === 'taxes' ? 'bg-burgundy-900 text-gold-300 shadow-sm border border-gold-400/40' : 'hover:text-burgundy-950'}`}
           >
             Tax Rules ({taxes.length})
           </button>
@@ -192,13 +191,13 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
       {activeTab === 'plans' && (
         <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-sm font-bold uppercase tracking-wider text-slate-700">Configured Plans & Policies</h2>
+            <h2 className="text-sm font-serif font-bold uppercase tracking-wider text-burgundy-900">Configured Plans & Policies</h2>
             {isAdmin && (
               <button
                 onClick={() => setShowPlanModal(true)}
-                className="bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition"
+                className="bg-gradient-to-r from-burgundy-900 to-burgundy-800 text-gold-300 border border-gold-400/60 font-serif font-bold text-xs px-3.5 py-2 rounded-xl shadow-gold-subtle flex items-center space-x-1.5 transition"
               >
-                <Plus className="w-4 h-4" />
+                <Plus className="w-4 h-4 text-gold-400" />
                 <span>Create Plan</span>
               </button>
             )}
@@ -206,40 +205,40 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
             {plans.map((plan) => (
-              <div key={plan.id} className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm hover:shadow transition flex flex-col justify-between">
+              <div key={plan.id} className="cream-card rounded-2xl p-5 shadow-sm hover:shadow-cinematic transition duration-300 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-start">
-                    <span className="text-[10px] font-mono uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-purple-50 text-purple-700 border border-purple-200">
+                    <span className="text-[10px] font-mono uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-gold-200/70 text-burgundy-950 border border-gold-400/50">
                       {plan.billing_interval}
                     </span>
-                    <span className="text-xl font-black text-slate-900">${plan.cost.toFixed(2)}</span>
+                    <span className="text-2xl font-serif font-black text-burgundy-950">${plan.cost.toFixed(2)}</span>
                   </div>
-                  <h3 className="text-base font-black text-slate-900 mt-2">{plan.name}</h3>
-                  <p className="text-xs text-slate-500 mt-1">{plan.description}</p>
+                  <h3 className="text-lg font-serif font-black text-burgundy-950 mt-2">{plan.name}</h3>
+                  <p className="text-xs text-cream-700 mt-1">{plan.description}</p>
 
-                  <div className="mt-3 text-xs text-slate-600 space-y-1 bg-slate-50 p-2.5 rounded-lg border border-slate-100">
+                  <div className="mt-3.5 text-xs text-cream-800 space-y-1 bg-cream-50 p-3 rounded-xl border border-gold-500/20">
                     <div><strong>Min Quantity:</strong> {plan.min_quantity} seat(s)</div>
-                    <div><strong>Available From:</strong> {plan.start_date} {plan.end_date ? `to ${plan.end_date}` : '(Ongoing)'}</div>
+                    <div><strong>Available Window:</strong> {plan.start_date} {plan.end_date ? `to ${plan.end_date}` : '(Ongoing)'}</div>
                   </div>
                 </div>
 
-                {/* Plan Policies configured by Admin */}
-                <div className="mt-4 pt-3 border-t border-slate-100 text-[11px] space-y-1">
-                  <div className="font-bold text-slate-700 mb-1">Lifecycle Policies (Admin Decided):</div>
-                  <div className="flex items-center space-x-1.5">
-                    <span className={`w-2 h-2 rounded-full ${plan.auto_close_on_end ? 'bg-amber-500' : 'bg-slate-300'}`}></span>
+                {/* Plan Policies */}
+                <div className="mt-4 pt-3 border-t border-gold-500/20 text-[11px] space-y-1.5">
+                  <div className="font-serif font-bold text-burgundy-950 mb-1">Lifecycle Policies (Admin Decided):</div>
+                  <div className="flex items-center space-x-1.5 text-cream-800">
+                    <span className={`w-2 h-2 rounded-full ${plan.auto_close_on_end ? 'bg-amber-600' : 'bg-cream-400'}`}></span>
                     <span>Auto-close when ends: <strong>{plan.auto_close_on_end ? 'Yes' : 'No'}</strong></span>
                   </div>
-                  <div className="flex items-center space-x-1.5">
-                    <span className={`w-2 h-2 rounded-full ${plan.allow_early_close ? 'bg-emerald-500' : 'bg-slate-300'}`}></span>
+                  <div className="flex items-center space-x-1.5 text-cream-800">
+                    <span className={`w-2 h-2 rounded-full ${plan.allow_early_close ? 'bg-emerald-600' : 'bg-cream-400'}`}></span>
                     <span>Allow early close: <strong>{plan.allow_early_close ? 'Allowed' : 'Locked'}</strong></span>
                   </div>
-                  <div className="flex items-center space-x-1.5">
-                    <span className={`w-2 h-2 rounded-full ${plan.allow_pause ? 'bg-emerald-500' : 'bg-slate-300'}`}></span>
+                  <div className="flex items-center space-x-1.5 text-cream-800">
+                    <span className={`w-2 h-2 rounded-full ${plan.allow_pause ? 'bg-emerald-600' : 'bg-cream-400'}`}></span>
                     <span>Allow pause: <strong>{plan.allow_pause ? 'Allowed' : 'Disabled'}</strong></span>
                   </div>
-                  <div className="flex items-center space-x-1.5">
-                    <span className={`w-2 h-2 rounded-full ${plan.allow_renew ? 'bg-emerald-500' : 'bg-slate-300'}`}></span>
+                  <div className="flex items-center space-x-1.5 text-cream-800">
+                    <span className={`w-2 h-2 rounded-full ${plan.allow_renew ? 'bg-emerald-600' : 'bg-cream-400'}`}></span>
                     <span>Allow renew: <strong>{plan.allow_renew ? 'Allowed' : 'Disabled'}</strong></span>
                   </div>
                 </div>
@@ -254,76 +253,76 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-700">Admin Discount Rules Engine</h2>
-              <p className="text-xs text-slate-500">
+              <h2 className="text-sm font-serif font-bold uppercase tracking-wider text-burgundy-900">Admin Discount Rules Engine</h2>
+              <p className="text-xs text-cream-700">
                 "Only the admin can create discount rules. Once applied, appears on the next invoice on its own, and stops when expired or runs out."
               </p>
             </div>
             {isAdmin ? (
               <button
                 onClick={() => setShowDiscountModal(true)}
-                className="bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition"
+                className="bg-gradient-to-r from-burgundy-900 to-burgundy-800 text-gold-300 border border-gold-400/60 font-serif font-bold text-xs px-3.5 py-2 rounded-xl shadow-gold-subtle flex items-center space-x-1.5 transition"
               >
-                <Plus className="w-4 h-4" />
+                <Plus className="w-4 h-4 text-gold-400" />
                 <span>Create Discount Rule</span>
               </button>
             ) : (
-              <span className="text-xs text-amber-700 font-semibold bg-amber-50 px-2.5 py-1 rounded border border-amber-200">
+              <span className="text-xs text-burgundy-950 font-serif font-bold bg-gold-100 px-3 py-1.5 rounded-lg border border-gold-400/50">
                 Admin privilege required to create discount rules
               </span>
             )}
           </div>
 
-          <div className="bg-white border border-slate-200 rounded-xl shadow-sm overflow-hidden">
+          <div className="cream-card rounded-2xl overflow-hidden shadow-cinematic">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 border-b border-slate-200 uppercase font-semibold">
+              <thead className="bg-cream-100/70 text-burgundy-950 border-b border-gold-500/20 uppercase font-serif tracking-wider font-bold">
                 <tr>
-                  <th className="py-3 px-4">Rule Code</th>
-                  <th className="py-3 px-4">Discount Value</th>
-                  <th className="py-3 px-4">Thresholds</th>
-                  <th className="py-3 px-4">Scope</th>
-                  <th className="py-3 px-4">Valid Window</th>
-                  <th className="py-3 px-4">Usage (Limit)</th>
-                  <th className="py-3 px-4">Status</th>
-                  {isAdmin && <th className="py-3 px-4 text-right">Toggle</th>}
+                  <th className="py-3.5 px-4.5">Rule Code</th>
+                  <th className="py-3.5 px-4.5">Discount Value</th>
+                  <th className="py-3.5 px-4.5">Thresholds</th>
+                  <th className="py-3.5 px-4.5">Scope</th>
+                  <th className="py-3.5 px-4.5">Valid Window</th>
+                  <th className="py-3.5 px-4.5">Usage Ledger</th>
+                  <th className="py-3.5 px-4.5">Status</th>
+                  {isAdmin && <th className="py-3.5 px-4.5 text-right">Toggle</th>}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-gold-500/10">
                 {discounts.map((d) => (
-                  <tr key={d.id} className="hover:bg-slate-50/50">
-                    <td className="py-3.5 px-4">
-                      <div className="font-mono font-bold text-purple-900 text-sm">{d.code}</div>
-                      <div className="text-[11px] text-slate-500">{d.description}</div>
+                  <tr key={d.id} className="hover:bg-gold-50/40">
+                    <td className="py-4 px-4.5">
+                      <div className="font-mono font-bold text-burgundy-950 text-sm">{d.code}</div>
+                      <div className="text-[11px] text-cream-600">{d.description}</div>
                     </td>
-                    <td className="py-3.5 px-4 font-bold text-emerald-600 text-sm">
+                    <td className="py-4 px-4.5 font-serif font-black text-emerald-800 text-sm">
                       {d.discount_type === 'percentage' ? `${d.discount_value}% OFF` : `$${d.discount_value.toFixed(2)} OFF`}
                     </td>
-                    <td className="py-3.5 px-4 text-slate-700">
+                    <td className="py-4 px-4.5 text-cream-800">
                       <div>Min Qty: {d.min_quantity > 0 ? `${d.min_quantity} seats` : 'None'}</div>
                       <div>Min Spend: {d.min_purchase_amount > 0 ? `$${d.min_purchase_amount}` : 'None'}</div>
                     </td>
-                    <td className="py-3.5 px-4 font-medium text-slate-700">
+                    <td className="py-4 px-4.5 font-medium text-cream-800">
                       {d.applies_to === 'whole_subscription' ? 'Whole Subscription' : `Specific Product (#${d.product_id})`}
                     </td>
-                    <td className="py-3.5 px-4 text-slate-600">
+                    <td className="py-4 px-4.5 text-cream-700">
                       {d.start_date} to {d.end_date}
                     </td>
-                    <td className="py-3.5 px-4 font-semibold text-slate-800">
+                    <td className="py-4 px-4.5 font-serif font-bold text-burgundy-950">
                       {d.used_count} / {d.usage_limit ? d.usage_limit : '∞'} used
                       {d.usage_limit && d.used_count >= d.usage_limit && (
-                        <span className="block text-[10px] text-rose-500 font-bold">DEPLETED</span>
+                        <span className="block text-[10px] text-rose-700 font-bold">EXHAUSTED</span>
                       )}
                     </td>
-                    <td className="py-3.5 px-4">
-                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${d.is_active ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}`}>
+                    <td className="py-4 px-4.5">
+                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold border tracking-wider ${d.is_active ? 'bg-emerald-100 text-emerald-900 border-emerald-300' : 'bg-cream-200 text-cream-700 border-cream-400'}`}>
                         {d.is_active ? 'ACTIVE' : 'INACTIVE'}
                       </span>
                     </td>
                     {isAdmin && (
-                      <td className="py-3.5 px-4 text-right">
+                      <td className="py-4 px-4.5 text-right">
                         <button
                           onClick={() => handleToggleDiscount(d.id)}
-                          className="text-xs font-semibold text-purple-700 hover:text-purple-900"
+                          className="text-xs font-serif font-bold text-burgundy-900 hover:text-burgundy-950"
                         >
                           {d.is_active ? 'Deactivate' : 'Activate'}
                         </button>
@@ -342,30 +341,30 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
         <div className="space-y-4">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="text-sm font-bold uppercase tracking-wider text-slate-700">Admin Tax Rules</h2>
-              <p className="text-xs text-slate-500">
+              <h2 className="text-sm font-serif font-bold uppercase tracking-wider text-burgundy-900">Admin Tax Rules</h2>
+              <p className="text-xs text-cream-700">
                 Taxes are calculated automatically on quotes and recurring invoices from rules the admin has set.
               </p>
             </div>
             {isAdmin && (
               <button
                 onClick={() => setShowTaxModal(true)}
-                className="bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow flex items-center space-x-1.5 transition"
+                className="bg-gradient-to-r from-burgundy-900 to-burgundy-800 text-gold-300 border border-gold-400/60 font-serif font-bold text-xs px-3.5 py-2 rounded-xl shadow-gold-subtle flex items-center space-x-1.5 transition"
               >
-                <Plus className="w-4 h-4" />
+                <Plus className="w-4 h-4 text-gold-400" />
                 <span>Add Tax Rule</span>
               </button>
             )}
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {taxes.map((t) => (
-              <div key={t.id} className="bg-white border border-slate-200 rounded-xl p-4 shadow-sm">
+              <div key={t.id} className="cream-card rounded-2xl p-4.5 shadow-sm">
                 <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold text-slate-700">{t.name}</span>
-                  <span className="text-lg font-black text-purple-900">{t.rate_percent}%</span>
+                  <span className="text-xs font-serif font-bold text-burgundy-950">{t.name}</span>
+                  <span className="text-xl font-serif font-black text-burgundy-950">{t.rate_percent}%</span>
                 </div>
-                <div className="mt-2 text-[11px] text-slate-500">Region: {t.country || 'Global'}</div>
+                <div className="mt-2 text-[11px] text-cream-600">Region: {t.country || 'Global'}</div>
               </div>
             ))}
           </div>
@@ -374,55 +373,55 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
       {/* Create Plan Modal */}
       {showPlanModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full p-6 space-y-4 my-8">
-            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-              <h3 className="text-lg font-black text-slate-900">Define New Billing Plan</h3>
-              <button onClick={() => setShowPlanModal(false)} className="text-slate-400 font-bold">✕</button>
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-lg w-full p-6 space-y-4 my-8 border border-gold-400">
+            <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
+              <h3 className="text-xl font-serif font-black text-burgundy-950">Define New Billing Plan</h3>
+              <button onClick={() => setShowPlanModal(false)} className="text-burgundy-800 font-bold text-lg">✕</button>
             </div>
 
             <form onSubmit={handleCreatePlan} className="space-y-3.5 text-xs">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Plan Name *</label>
+                <label className="block font-serif font-bold text-burgundy-950 mb-1">Plan Title *</label>
                 <input
                   type="text"
-                  placeholder="e.g. Enterprise Yearly Dedicated"
+                  placeholder="e.g. Enterprise Dedicated"
                   value={planName}
                   onChange={(e) => setPlanName(e.target.value)}
-                  className="w-full border border-slate-300 rounded px-3 py-2 text-slate-900"
+                  className="w-full border border-gold-500/30 rounded-lg px-3 py-2 text-burgundy-950 bg-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Description</label>
+                <label className="block font-serif font-bold text-burgundy-950 mb-1">Description</label>
                 <input
                   type="text"
                   placeholder="Plan description notes"
                   value={planDescription}
                   onChange={(e) => setPlanDescription(e.target.value)}
-                  className="w-full border border-slate-300 rounded px-3 py-2 text-slate-900"
+                  className="w-full border border-gold-500/30 rounded-lg px-3 py-2 text-burgundy-950 bg-white"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Cost ($) *</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Cost ($) *</label>
                   <input
                     type="number"
                     step="0.01"
                     value={planCost}
                     onChange={(e) => setPlanCost(Number(e.target.value))}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5 text-slate-900 font-bold"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 text-burgundy-950 font-serif font-bold bg-white"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Frequency *</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Frequency *</label>
                   <select
                     value={planInterval}
                     onChange={(e: any) => setPlanInterval(e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5 text-slate-900"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 text-burgundy-950 bg-white"
                   >
                     <option value="daily">Daily</option>
                     <option value="weekly">Weekly</option>
@@ -431,13 +430,13 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
                   </select>
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Min Qty *</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Min Qty *</label>
                   <input
                     type="number"
                     min="1"
                     value={planMinQty}
                     onChange={(e) => setPlanMinQty(Number(e.target.value))}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5 text-slate-900 font-bold"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 text-burgundy-950 font-bold bg-white"
                     required
                   />
                 </div>
@@ -445,35 +444,34 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Start Date *</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Start Date *</label>
                   <input
                     type="date"
                     value={planStartDate}
                     onChange={(e) => setPlanStartDate(e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5 text-slate-900"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 text-burgundy-950 bg-white font-mono"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">End Date (Optional)</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">End Date (Optional)</label>
                   <input
                     type="date"
                     value={planEndDate}
                     onChange={(e) => setPlanEndDate(e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5 text-slate-900"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 text-burgundy-950 bg-white font-mono"
                   />
                 </div>
               </div>
 
-              {/* Lifecycle configuration switches */}
-              <div className="border border-purple-200 bg-purple-50/50 p-3 rounded-lg space-y-2">
-                <span className="font-bold text-purple-950 block">Admin Lifecycle Policy Decider:</span>
+              <div className="border border-gold-500/30 bg-cream-50 p-3.5 rounded-xl space-y-2">
+                <span className="font-serif font-bold text-burgundy-950 block">Admin Lifecycle Decider:</span>
                 <label className="flex items-center space-x-2 cursor-pointer">
                   <input
                     type="checkbox"
                     checked={autoCloseOnEnd}
                     onChange={(e) => setAutoCloseOnEnd(e.target.checked)}
-                    className="rounded text-purple-600"
+                    className="rounded text-burgundy-800"
                   />
                   <span>Close on its own when period ends (Auto-close)</span>
                 </label>
@@ -482,7 +480,7 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
                     type="checkbox"
                     checked={allowEarlyClose}
                     onChange={(e) => setAllowEarlyClose(e.target.checked)}
-                    className="rounded text-purple-600"
+                    className="rounded text-burgundy-800"
                   />
                   <span>Permit customers/team to close early</span>
                 </label>
@@ -491,7 +489,7 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
                     type="checkbox"
                     checked={allowPause}
                     onChange={(e) => setAllowPause(e.target.checked)}
-                    className="rounded text-purple-600"
+                    className="rounded text-burgundy-800"
                   />
                   <span>Permit subscriptions on this plan to be paused</span>
                 </label>
@@ -500,23 +498,23 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
                     type="checkbox"
                     checked={allowRenew}
                     onChange={(e) => setAllowRenew(e.target.checked)}
-                    className="rounded text-purple-600"
+                    className="rounded text-burgundy-800"
                   />
                   <span>Permit renewal when closed</span>
                 </label>
               </div>
 
-              <div className="flex justify-end space-x-2 pt-3 border-t border-slate-100">
+              <div className="flex justify-end space-x-2.5 pt-3 border-t border-gold-500/20">
                 <button
                   type="button"
                   onClick={() => setShowPlanModal(false)}
-                  className="px-3.5 py-2 border border-slate-300 rounded font-bold"
+                  className="px-4 py-2 border border-gold-500/30 rounded-xl font-serif font-bold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded font-bold shadow-sm"
+                  className="px-4 py-2 bg-gradient-to-r from-burgundy-900 to-burgundy-800 text-gold-300 border border-gold-400 rounded-xl font-serif font-bold shadow-sm"
                 >
                   Save Plan
                 </button>
@@ -528,32 +526,32 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
       {/* Create Discount Modal */}
       {showDiscountModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-xl shadow-2xl max-w-lg w-full p-6 space-y-4 my-8">
-            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-              <h3 className="text-lg font-black text-slate-900">Create Admin Discount Rule</h3>
-              <button onClick={() => setShowDiscountModal(false)} className="text-slate-400 font-bold">✕</button>
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4 overflow-y-auto">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-lg w-full p-6 space-y-4 my-8 border border-gold-400">
+            <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
+              <h3 className="text-xl font-serif font-black text-burgundy-950">Create Admin Discount Rule</h3>
+              <button onClick={() => setShowDiscountModal(false)} className="text-burgundy-800 font-bold">✕</button>
             </div>
 
             <form onSubmit={handleCreateDiscount} className="space-y-3.5 text-xs">
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Discount Code *</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Discount Code *</label>
                   <input
                     type="text"
                     placeholder="e.g. SEATS20"
                     value={discCode}
                     onChange={(e) => setDiscCode(e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5 uppercase font-mono font-bold"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 uppercase font-mono font-bold bg-white"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Discount Type</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Discount Type</label>
                   <select
                     value={discType}
                     onChange={(e: any) => setDiscType(e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 bg-white"
                   >
                     <option value="percentage">Percentage (%)</option>
                     <option value="fixed">Fixed Amount ($)</option>
@@ -562,7 +560,7 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">
+                <label className="block font-serif font-bold text-burgundy-950 mb-1">
                   Discount Value ({discType === 'percentage' ? '%' : '$'}) *
                 </label>
                 <input
@@ -570,82 +568,82 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
                   step="0.01"
                   value={discValue}
                   onChange={(e) => setDiscValue(Number(e.target.value))}
-                  className="w-full border border-slate-300 rounded px-2.5 py-1.5 font-bold"
+                  className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 font-serif font-bold bg-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Description</label>
+                <label className="block font-serif font-bold text-burgundy-950 mb-1">Description</label>
                 <input
                   type="text"
                   placeholder="e.g. 20% discount for orders with 5+ seats"
                   value={discDescription}
                   onChange={(e) => setDiscDescription(e.target.value)}
-                  className="w-full border border-slate-300 rounded px-2.5 py-1.5"
+                  className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 bg-white"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Min Quantity Required</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Min Quantity Required</label>
                   <input
                     type="number"
                     value={discMinQty}
                     onChange={(e) => setDiscMinQty(Number(e.target.value))}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 bg-white font-bold"
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Min Spend Amount ($)</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Min Spend Amount ($)</label>
                   <input
                     type="number"
                     value={discMinPurchase}
                     onChange={(e) => setDiscMinPurchase(Number(e.target.value))}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 bg-white font-bold"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Start Date *</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Start Date *</label>
                   <input
                     type="date"
                     value={discStartDate}
                     onChange={(e) => setDiscStartDate(e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2 py-1.5"
+                    className="w-full border border-gold-500/30 rounded-lg px-2 py-1.5 bg-white font-mono"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">End Date *</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">End Date *</label>
                   <input
                     type="date"
                     value={discEndDate}
                     onChange={(e) => setDiscEndDate(e.target.value)}
-                    className="w-full border border-slate-300 rounded px-2 py-1.5"
+                    className="w-full border border-gold-500/30 rounded-lg px-2 py-1.5 bg-white font-mono"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Usage Limit</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Usage Limit</label>
                   <input
                     type="number"
                     placeholder="e.g. 100"
                     value={discUsageLimit}
                     onChange={(e) => setDiscUsageLimit(e.target.value ? Number(e.target.value) : '')}
-                    className="w-full border border-slate-300 rounded px-2 py-1.5 font-bold"
+                    className="w-full border border-gold-500/30 rounded-lg px-2 py-1.5 font-bold bg-white"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Applies To</label>
+                <label className="block font-serif font-bold text-burgundy-950 mb-1">Applies To</label>
                 <select
                   value={discAppliesTo}
                   onChange={(e: any) => setDiscAppliesTo(e.target.value)}
-                  className="w-full border border-slate-300 rounded px-2.5 py-1.5"
+                  className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 bg-white"
                 >
                   <option value="whole_subscription">Whole Subscription Subtotal</option>
                   <option value="specific_product">Specific Product Line Only</option>
@@ -654,11 +652,11 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
               {discAppliesTo === 'specific_product' && (
                 <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Select Applicable Product</label>
+                  <label className="block font-serif font-bold text-burgundy-950 mb-1">Select Applicable Product</label>
                   <select
                     value={discProductId}
                     onChange={(e) => setDiscProductId(Number(e.target.value))}
-                    className="w-full border border-slate-300 rounded px-2.5 py-1.5"
+                    className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 bg-white"
                   >
                     <option value="">-- Select Product --</option>
                     {products.map(p => (
@@ -668,17 +666,17 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
                 </div>
               )}
 
-              <div className="flex justify-end space-x-2 pt-3 border-t border-slate-100">
+              <div className="flex justify-end space-x-2 pt-3 border-t border-gold-500/20">
                 <button
                   type="button"
                   onClick={() => setShowDiscountModal(false)}
-                  className="px-3.5 py-2 border border-slate-300 rounded font-bold"
+                  className="px-4 py-2 border border-gold-500/30 rounded-xl font-serif font-bold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-purple-700 hover:bg-purple-800 text-white rounded font-bold shadow-sm"
+                  className="px-4 py-2 bg-gradient-to-r from-burgundy-900 to-burgundy-800 text-gold-300 border border-gold-400 rounded-xl font-serif font-bold shadow-sm"
                 >
                   Create Discount Rule
                 </button>
@@ -690,59 +688,59 @@ export const PlansDiscountsView: React.FC<PlansDiscountsViewProps> = ({ currentU
 
       {/* Tax Modal */}
       {showTaxModal && (
-        <div className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-2xl max-w-sm w-full p-6 space-y-4">
-            <div className="flex justify-between items-center border-b border-slate-100 pb-3">
-              <h3 className="text-base font-black text-slate-900">Add Tax Rule</h3>
-              <button onClick={() => setShowTaxModal(false)} className="text-slate-400 font-bold">✕</button>
+        <div className="fixed inset-0 bg-burgundy-950/75 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="cream-card rounded-2xl shadow-cinematic-lg max-w-sm w-full p-6 space-y-4 border border-gold-400">
+            <div className="flex justify-between items-center border-b border-gold-500/20 pb-3">
+              <h3 className="text-base font-serif font-black text-burgundy-950">Add Tax Rule</h3>
+              <button onClick={() => setShowTaxModal(false)} className="text-burgundy-800 font-bold">✕</button>
             </div>
 
-            <form onSubmit={handleCreateTax} className="space-y-3 text-xs">
+            <form onSubmit={handleCreateTax} className="space-y-3.5 text-xs">
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Tax Name *</label>
+                <label className="block font-serif font-bold text-burgundy-950 mb-1">Tax Name *</label>
                 <input
                   type="text"
                   placeholder="e.g. VAT Standard (15%)"
                   value={taxName}
                   onChange={(e) => setTaxName(e.target.value)}
-                  className="w-full border border-slate-300 rounded px-2.5 py-1.5 text-slate-900"
+                  className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 text-burgundy-950 bg-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Rate Percent (%) *</label>
+                <label className="block font-serif font-bold text-burgundy-950 mb-1">Rate Percent (%) *</label>
                 <input
                   type="number"
                   step="0.1"
                   value={taxRate}
                   onChange={(e) => setTaxRate(Number(e.target.value))}
-                  className="w-full border border-slate-300 rounded px-2.5 py-1.5 text-slate-900 font-bold"
+                  className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 text-burgundy-950 font-serif font-bold bg-white"
                   required
                 />
               </div>
 
               <div>
-                <label className="block font-semibold text-slate-700 mb-1">Country / Region</label>
+                <label className="block font-serif font-bold text-burgundy-950 mb-1">Country / Region</label>
                 <input
                   type="text"
                   value={taxCountry}
                   onChange={(e) => setTaxCountry(e.target.value)}
-                  className="w-full border border-slate-300 rounded px-2.5 py-1.5 text-slate-900"
+                  className="w-full border border-gold-500/30 rounded-lg px-2.5 py-1.5 text-burgundy-950 bg-white"
                 />
               </div>
 
-              <div className="flex justify-end space-x-2 pt-2 border-t border-slate-100">
+              <div className="flex justify-end space-x-2 pt-2 border-t border-gold-500/20">
                 <button
                   type="button"
                   onClick={() => setShowTaxModal(false)}
-                  className="px-3 py-1.5 border border-slate-300 rounded font-bold"
+                  className="px-3.5 py-1.5 border border-gold-500/30 rounded-lg font-serif font-bold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-3.5 py-1.5 bg-purple-700 text-white rounded font-bold shadow-sm"
+                  className="px-4 py-1.5 bg-gradient-to-r from-burgundy-900 to-burgundy-800 text-gold-300 border border-gold-400 rounded-lg font-serif font-bold shadow-sm"
                 >
                   Save Tax
                 </button>

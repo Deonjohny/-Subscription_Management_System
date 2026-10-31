@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { api } from '../api';
 import { User } from '../types';
-import { Lock, Mail, UserCheck, ShieldCheck, Check, X, ArrowRight, RefreshCw, Key } from 'lucide-react';
+import { Lock, Mail, Check, X, ArrowRight, Sparkles } from 'lucide-react';
 
 interface AuthModalProps {
   onSuccess: (user: User, token: string) => void;
@@ -127,41 +127,52 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center p-4">
-      <div className="max-w-md w-full bg-white rounded-2xl shadow-2xl overflow-hidden border border-slate-200">
-        {/* Header */}
-        <div className="bg-gradient-to-tr from-[#714B67] to-[#017E84] p-6 text-white text-center">
-          <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center font-black text-2xl mx-auto shadow-inner">
-            B
+    <div className="min-h-screen bg-gradient-to-br from-burgundy-950 via-burgundy-900 to-burgundy-950 flex flex-col justify-center items-center p-4 relative overflow-hidden">
+      {/* Background radial gold glow effects */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gold-500/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-burgundy-600/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div className="max-w-md w-full cream-card rounded-3xl shadow-cinematic-lg overflow-hidden border border-gold-400 relative z-10">
+        {/* Header with Regal Monogram */}
+        <div className="bg-gradient-to-br from-burgundy-950 via-burgundy-900 to-burgundy-950 p-7 text-center border-b border-gold-500/30">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-gold-300 via-gold-500 to-gold-700 p-[1.5px] mx-auto shadow-gold-glow">
+            <div className="w-full h-full bg-burgundy-950 rounded-[14px] flex items-center justify-center font-serif font-black text-2xl text-gold-300 tracking-wider">
+              B
+            </div>
           </div>
-          <h1 className="text-2xl font-black mt-3">Brightloop Software</h1>
-          <p className="text-white/80 text-xs mt-1">Unified Subscription & Recurring Billing Platform</p>
+          <h1 className="text-2xl font-serif font-black mt-3.5 gold-gradient-text tracking-wide">
+            Brightloop Software
+          </h1>
+          <p className="text-cream-200/90 text-xs mt-1 font-serif tracking-widest uppercase">
+            Subscription OS & Recurring Ledger
+          </p>
         </div>
 
-        {/* Demo fast-fill buttons */}
-        <div className="bg-slate-100/80 px-4 py-2.5 border-b border-slate-200 text-xs">
-          <div className="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-1.5 text-center">
-            ⚡ Quick Demo Accounts
+        {/* Demo Fast-Fill Ribbon */}
+        <div className="bg-gradient-to-r from-cream-100 via-cream-50 to-cream-100 px-5 py-3 border-b border-gold-500/20 text-xs">
+          <div className="text-[11px] font-serif font-bold text-burgundy-900 uppercase tracking-wider mb-2 text-center flex items-center justify-center space-x-1">
+            <Sparkles className="w-3.5 h-3.5 text-gold-600" />
+            <span>Instant Demo Accounts</span>
           </div>
-          <div className="grid grid-cols-3 gap-1.5">
+          <div className="grid grid-cols-3 gap-2">
             <button
               type="button"
               onClick={() => quickFill('admin@brightloop.io', 'BrightloopAdmin!2026')}
-              className="py-1 px-2 bg-purple-100 hover:bg-purple-200 text-purple-900 rounded font-semibold text-[11px] transition text-center"
+              className="py-1.5 px-2 bg-burgundy-900 hover:bg-burgundy-800 text-gold-300 border border-gold-400/50 rounded-lg font-serif font-bold text-[11px] transition text-center shadow-sm"
             >
               👑 Admin
             </button>
             <button
               type="button"
               onClick={() => quickFill('sarah.sales@brightloop.io', 'StaffMember!2026')}
-              className="py-1 px-2 bg-blue-100 hover:bg-blue-200 text-blue-900 rounded font-semibold text-[11px] transition text-center"
+              className="py-1.5 px-2 bg-burgundy-900 hover:bg-burgundy-800 text-gold-300 border border-gold-400/50 rounded-lg font-serif font-bold text-[11px] transition text-center shadow-sm"
             >
               💼 Staff
             </button>
             <button
               type="button"
               onClick={() => quickFill('alice@techflow.com', 'CustomerPass!2026')}
-              className="py-1 px-2 bg-emerald-100 hover:bg-emerald-200 text-emerald-900 rounded font-semibold text-[11px] transition text-center"
+              className="py-1.5 px-2 bg-burgundy-900 hover:bg-burgundy-800 text-gold-300 border border-gold-400/50 rounded-lg font-serif font-bold text-[11px] transition text-center shadow-sm"
             >
               🏢 Customer
             </button>
@@ -170,7 +181,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
 
         {/* Feedback message */}
         {message && (
-          <div className={`p-3 text-xs mx-4 mt-4 rounded-lg font-medium ${message.type === 'error' ? 'bg-rose-50 text-rose-700 border border-rose-200' : 'bg-emerald-50 text-emerald-700 border border-emerald-200'}`}>
+          <div className={`p-3.5 text-xs mx-6 mt-4 rounded-xl font-serif font-semibold ${message.type === 'error' ? 'bg-rose-50 text-rose-800 border border-rose-300' : 'bg-emerald-50 text-emerald-900 border border-emerald-300'}`}>
             {message.text}
           </div>
         )}
@@ -179,15 +190,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
         {mode === 'login' && (
           <form onSubmit={handleLogin} className="p-6 space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Email Address</label>
+              <label className="block font-serif font-bold text-burgundy-950 mb-1">Email Address</label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                <Mail className="w-4 h-4 text-gold-600 absolute left-3 top-2.5" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="admin@brightloop.io"
-                  className="w-full border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full border border-gold-500/30 rounded-xl pl-9 pr-3 py-2 text-burgundy-950 focus:outline-none focus:ring-1 focus:ring-gold-500 bg-white"
                   required
                 />
               </div>
@@ -195,23 +206,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
 
             <div>
               <div className="flex justify-between items-center mb-1">
-                <label className="font-semibold text-slate-700">Password</label>
+                <label className="font-serif font-bold text-burgundy-950">Password</label>
                 <button
                   type="button"
                   onClick={() => { setMode('forgot'); setMessage(null); }}
-                  className="text-purple-700 hover:underline text-[11px]"
+                  className="text-burgundy-800 hover:text-burgundy-950 font-serif font-semibold text-[11px] underline"
                 >
                   Forgot password?
                 </button>
               </div>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
+                <Lock className="w-4 h-4 text-gold-600 absolute left-3 top-2.5" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full border border-slate-300 rounded-lg pl-9 pr-3 py-2 text-slate-900 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                  className="w-full border border-gold-500/30 rounded-xl pl-9 pr-3 py-2 text-burgundy-950 focus:outline-none focus:ring-1 focus:ring-gold-500 bg-white font-mono"
                   required
                 />
               </div>
@@ -220,20 +231,20 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-2.5 bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-800 hover:to-indigo-800 text-white font-bold rounded-lg shadow transition text-sm flex justify-center items-center space-x-1"
+              className="w-full py-2.5 bg-gradient-to-r from-gold-600 via-gold-500 to-gold-600 hover:from-gold-500 hover:to-gold-400 text-burgundy-950 font-serif font-black rounded-xl shadow-gold-subtle transition text-sm flex justify-center items-center space-x-1.5"
             >
-              <span>Sign In</span>
+              <span>Authenticate Account</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
-            <div className="text-center pt-2 text-slate-500">
-              New customer?{' '}
+            <div className="text-center pt-2 text-cream-800">
+              New client?{' '}
               <button
                 type="button"
                 onClick={() => { setMode('register'); setMessage(null); }}
-                className="text-purple-700 font-bold hover:underline"
+                className="text-burgundy-900 font-serif font-bold hover:underline"
               >
-                Create an account
+                Create business account
               </button>
             </div>
           </form>
@@ -243,69 +254,69 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
         {mode === 'register' && (
           <form onSubmit={handleRegister} className="p-6 space-y-3.5 text-xs">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Your Full Name *</label>
+              <label className="block font-serif font-bold text-burgundy-950 mb-1">Full Legal Name *</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Jane Doe"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900"
+                className="w-full border border-gold-500/30 rounded-xl px-3 py-2 text-burgundy-950 bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Company / Organization</label>
+              <label className="block font-serif font-bold text-burgundy-950 mb-1">Company / Organization</label>
               <input
                 type="text"
                 value={companyName}
                 onChange={(e) => setCompanyName(e.target.value)}
                 placeholder="e.g. Acme Innovations Ltd"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900"
+                className="w-full border border-gold-500/30 rounded-xl px-3 py-2 text-burgundy-950 bg-white"
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Email Address *</label>
+              <label className="block font-serif font-bold text-burgundy-950 mb-1">Corporate Email *</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="jane@acme.com"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900"
+                className="w-full border border-gold-500/30 rounded-xl px-3 py-2 text-burgundy-950 bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Password *</label>
+              <label className="block font-serif font-bold text-burgundy-950 mb-1">Password *</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Must meet strength criteria below"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900"
+                placeholder="Must satisfy criteria below"
+                className="w-full border border-gold-500/30 rounded-xl px-3 py-2 text-burgundy-950 font-mono bg-white"
                 required
               />
 
               {/* Password Requirement Checklist directly from PDF spec:
                   "must be more than eight characters, with an uppercase letter, a lowercase letter and a special character" */}
-              <div className="mt-2.5 p-2.5 bg-slate-50 border border-slate-200 rounded-lg space-y-1 text-[11px]">
-                <div className="font-bold text-slate-700 mb-1">Password Requirements:</div>
-                <div className={`flex items-center space-x-1.5 ${hasLength ? 'text-emerald-600 font-bold' : 'text-slate-400'}`}>
-                  {hasLength ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+              <div className="mt-2.5 p-3 bg-cream-50 border border-gold-500/30 rounded-xl space-y-1 text-[11px]">
+                <div className="font-serif font-bold text-burgundy-950 mb-1">Security Criteria:</div>
+                <div className={`flex items-center space-x-1.5 ${hasLength ? 'text-emerald-800 font-bold' : 'text-cream-600'}`}>
+                  {hasLength ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <X className="w-3.5 h-3.5" />}
                   <span>More than 8 characters ({password.length}/9+)</span>
                 </div>
-                <div className={`flex items-center space-x-1.5 ${hasUpper ? 'text-emerald-600 font-bold' : 'text-slate-400'}`}>
-                  {hasUpper ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                <div className={`flex items-center space-x-1.5 ${hasUpper ? 'text-emerald-800 font-bold' : 'text-cream-600'}`}>
+                  {hasUpper ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <X className="w-3.5 h-3.5" />}
                   <span>At least one uppercase letter (A-Z)</span>
                 </div>
-                <div className={`flex items-center space-x-1.5 ${hasLower ? 'text-emerald-600 font-bold' : 'text-slate-400'}`}>
-                  {hasLower ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                <div className={`flex items-center space-x-1.5 ${hasLower ? 'text-emerald-800 font-bold' : 'text-cream-600'}`}>
+                  {hasLower ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <X className="w-3.5 h-3.5" />}
                   <span>At least one lowercase letter (a-z)</span>
                 </div>
-                <div className={`flex items-center space-x-1.5 ${hasSpecial ? 'text-emerald-600 font-bold' : 'text-slate-400'}`}>
-                  {hasSpecial ? <Check className="w-3.5 h-3.5" /> : <X className="w-3.5 h-3.5" />}
+                <div className={`flex items-center space-x-1.5 ${hasSpecial ? 'text-emerald-800 font-bold' : 'text-cream-600'}`}>
+                  {hasSpecial ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <X className="w-3.5 h-3.5" />}
                   <span>At least one special character (!@#$%^&*...)</span>
                 </div>
               </div>
@@ -314,17 +325,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
             <button
               type="submit"
               disabled={submitting || !isPasswordValid}
-              className="w-full py-2.5 bg-purple-700 hover:bg-purple-800 disabled:opacity-50 text-white font-bold rounded-lg shadow transition text-sm"
+              className="w-full py-2.5 bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-500 hover:to-gold-400 disabled:opacity-50 text-burgundy-950 font-serif font-black rounded-xl shadow-gold-subtle transition text-sm"
             >
-              Create Customer Account
+              Create Client Portal Account
             </button>
 
-            <div className="text-center pt-1 text-slate-500">
-              Already have an account?{' '}
+            <div className="text-center pt-1 text-cream-800">
+              Existing account?{' '}
               <button
                 type="button"
                 onClick={() => { setMode('login'); setMessage(null); }}
-                className="text-purple-700 font-bold hover:underline"
+                className="text-burgundy-900 font-serif font-bold hover:underline"
               >
                 Sign in
               </button>
@@ -335,17 +346,17 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
         {/* FORGOT PASSWORD FORM */}
         {mode === 'forgot' && (
           <form onSubmit={handleForgot} className="p-6 space-y-4 text-xs">
-            <p className="text-slate-600">
-              Enter your registered email address. A password reset link will arrive at your registered inbox.
+            <p className="text-cream-800 leading-relaxed font-serif">
+              Enter your registered email address. A password reset token link will be dispatched to your inbox.
             </p>
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Registered Email</label>
+              <label className="block font-serif font-bold text-burgundy-950 mb-1">Registered Email</label>
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="alice@techflow.com"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900"
+                className="w-full border border-gold-500/30 rounded-xl px-3 py-2 text-burgundy-950 bg-white"
                 required
               />
             </div>
@@ -353,16 +364,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-2.5 bg-purple-700 hover:bg-purple-800 text-white font-bold rounded-lg shadow transition text-sm"
+              className="w-full py-2.5 bg-gradient-to-r from-gold-600 to-gold-500 text-burgundy-950 font-serif font-black rounded-xl shadow-gold-subtle transition text-sm"
             >
-              Send Reset Link
+              Dispatch Reset Token
             </button>
 
             <div className="text-center">
               <button
                 type="button"
                 onClick={() => { setMode('login'); setMessage(null); }}
-                className="text-slate-500 hover:text-slate-800 font-medium"
+                className="text-burgundy-800 hover:text-burgundy-950 font-serif font-bold"
               >
                 ← Back to Login
               </button>
@@ -373,28 +384,28 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
         {/* RESET PASSWORD FORM */}
         {mode === 'reset' && (
           <form onSubmit={handleReset} className="p-6 space-y-3.5 text-xs">
-            <p className="text-slate-600">
-              Enter your reset token and your new secure password.
+            <p className="text-cream-800 leading-relaxed font-serif">
+              Enter the reset token sent to your email and your new secure password.
             </p>
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">Reset Token</label>
+              <label className="block font-serif font-bold text-burgundy-950 mb-1">Reset Token</label>
               <input
                 type="text"
                 value={resetToken}
                 onChange={(e) => setResetToken(e.target.value)}
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900 font-mono"
+                className="w-full border border-gold-500/30 rounded-xl px-3 py-2 text-burgundy-950 font-mono bg-white"
                 required
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">New Password</label>
+              <label className="block font-serif font-bold text-burgundy-950 mb-1">New Password</label>
               <input
                 type="password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="NewPassword!2026"
-                className="w-full border border-slate-300 rounded-lg px-3 py-2 text-slate-900"
+                placeholder="NewSecurePass!2026"
+                className="w-full border border-gold-500/30 rounded-xl px-3 py-2 text-burgundy-950 font-mono bg-white"
                 required
               />
             </div>
@@ -402,16 +413,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
             <button
               type="submit"
               disabled={submitting}
-              className="w-full py-2.5 bg-purple-700 hover:bg-purple-800 text-white font-bold rounded-lg shadow transition text-sm"
+              className="w-full py-2.5 bg-gradient-to-r from-gold-600 to-gold-500 text-burgundy-950 font-serif font-black rounded-xl shadow-gold-subtle transition text-sm"
             >
-              Set New Password & Log In
+              Update Password & Enter
             </button>
 
             <div className="text-center">
               <button
                 type="button"
                 onClick={() => { setMode('login'); setMessage(null); }}
-                className="text-slate-500 hover:text-slate-800 font-medium"
+                className="text-burgundy-800 hover:text-burgundy-950 font-serif font-bold"
               >
                 ← Back to Login
               </button>
