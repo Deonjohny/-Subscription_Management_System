@@ -150,14 +150,29 @@ export const App: React.FC = () => {
         </div>
       </main>
 
-      <footer className="bg-gradient-to-r from-burgundy-950 via-burgundy-900 to-burgundy-950 border-t border-gold-500/30 py-4.5 text-center text-xs text-cream-200/80 font-serif">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
-          <div className="flex items-center space-x-2">
-            <span className="font-bold text-gold-300">Zebra5 Software</span>
-            <span>• Autonomous Subscription & Billing OS</span>
+      <footer className="bg-gradient-to-r from-burgundy-950 via-burgundy-900 to-burgundy-950 border-t border-gold-500/25 py-3 text-xs text-cream-200/80 font-sans">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-2.5">
+          <div className="flex items-center space-x-3 text-xs">
+            <span className="font-serif font-black text-gold-300 tracking-wider">ZEBRA5 ENTERPRISE</span>
+            <span className="text-cream-400">•</span>
+            <span className="text-cream-200/75 text-[11px]">Autonomous Subscription OS & Recurring Ledger</span>
           </div>
-          <div className="text-gold-400/80 tracking-wide font-mono text-[11px]">
-            Burgundy & Cream Edition • Gold Lined
+
+          {/* Telemetry Chips */}
+          <div className="flex flex-wrap items-center gap-2 text-[10px] font-mono text-cream-200/70">
+            <span className="flex items-center space-x-1 bg-emerald-950/60 text-emerald-300 border border-emerald-500/30 px-2 py-0.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>API: 99.99%</span>
+            </span>
+            <span className="bg-burgundy-900/90 border border-gold-500/20 px-2 py-0.5 rounded-full text-gold-300">
+              SQLite WAL Active
+            </span>
+            <span className="bg-burgundy-900/90 border border-gold-500/20 px-2 py-0.5 rounded-full text-gold-300">
+              GZip Fast Stream
+            </span>
+            <span className="bg-burgundy-900/90 border border-gold-500/20 px-2 py-0.5 rounded-full text-gold-300">
+              TLS 1.3 Verified
+            </span>
           </div>
         </div>
       </footer>

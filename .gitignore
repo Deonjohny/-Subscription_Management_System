@@ -1,3 +1,5 @@
+*.db-wal
+*.db-shm
 cloudflared.exe
 frontend/dist/
 # Node & Frontend
