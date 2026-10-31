@@ -3,7 +3,8 @@ import { api } from '../api';
 import { FinanceSummary, Invoice } from '../types';
 import {
   TrendingUp, AlertCircle, DollarSign, Users,
-  Play, CheckCircle2, Clock, RefreshCw, Sparkles, Award
+  Play, CheckCircle2, Clock, RefreshCw, Sparkles, Award,
+  Download, Zap, ShieldCheck, HeartHandshake, ArrowUpRight
 } from 'lucide-react';
 
 interface FinanceDashboardProps {
@@ -18,15 +19,23 @@ export const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ onNavigateTo
   const [runningBilling, setRunningBilling] = useState(false);
   const [responseSpeedMs, setResponseSpeedMs] = useState<number>(0);
 
+  // Enterprise Addons State
+  const [dunningResult, setDunningResult] = useState<any>(null);
+  const [runningDunning, setRunningDunning] = useState(false);
+  const [healthScores, setHealthScores] = useState<any[]>([]);
+  const [exportingCsv, setExportingCsv] = useState(false);
+
   const loadData = async () => {
     const start = performance.now();
     try {
-      const [sumData, overdueData] = await Promise.all([
+      const [sumData, overdueData, healthData] = await Promise.all([
         api.getFinanceSummary(),
-        api.getInvoices({ overdue_only: true })
+        api.getInvoices({ overdue_only: true }),
+        api.getCustomerHealthScores()
       ]);
       setSummary(sumData);
       setOverdueInvoices(overdueData);
+      setHealthScores(healthData);
       const end = performance.now();
       setResponseSpeedMs(Math.round(end - start));
     } catch (err) {
@@ -51,6 +60,30 @@ export const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ onNavigateTo
     }
   };
 
+  const handleExportCSV = async () => {
+    setExportingCsv(true);
+    try {
+      await api.downloadInvoicesCSV();
+    } catch (err) {
+      alert('Failed to export CSV ledger');
+    } finally {
+      setExportingCsv(false);
+    }
+  };
+
+  const handleRunDunning = async () => {
+    setRunningDunning(true);
+    try {
+      const res = await api.runSmartDunning();
+      setDunningResult(res);
+      await loadData();
+    } catch (err: any) {
+      alert(err.response?.data?.detail || 'Failed to execute dunning recovery');
+    } finally {
+      setRunningDunning(false);
+    }
+  };
+
   return (
     <div className="space-y-7">
       {/* Cinematic Burgundy & Gold Hero Command Banner */}
@@ -69,9 +102,18 @@ export const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ onNavigateTo
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                 <span>Sub-Second Response: {responseSpeedMs}ms</span>
               </span>
+              <button
+                onClick={handleExportCSV}
+                disabled={exportingCsv}
+                className="bg-gold-500/20 hover:bg-gold-500/35 text-gold-300 text-xs px-3 py-1 rounded-full font-serif font-bold border border-gold-400/50 flex items-center space-x-1.5 transition active:scale-95 shadow-sm cursor-pointer"
+                title="Download Full Ledger as CSV for QuickBooks / Excel"
+              >
+                <Download className="w-3.5 h-3.5 text-gold-300" />
+                <span>{exportingCsv ? 'Exporting...' : 'Export Ledger (CSV)'}</span>
+              </button>
             </div>
             <h1 className="text-3xl font-serif font-black mt-3 tracking-tight gold-gradient-text">
-              Brightloop Financial Ledger
+              Zebra5 Financial Ledger
             </h1>
             <p className="text-cream-200/90 text-sm mt-1.5 max-w-2xl font-sans">
               Instantaneous intelligence across active contracts, ARR / MRR velocity, automated billing cycles, and overdue payment chase queues.
@@ -226,14 +268,49 @@ export const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ onNavigateTo
               Invoices whose payment terms have lapsed. Settle immediately before turning into lost revenue.
             </p>
           </div>
-          <button
-            onClick={loadData}
-            className="text-xs text-burgundy-900 hover:text-burgundy-950 font-semibold flex items-center space-x-1 px-3 py-1.5 border border-gold-500/40 rounded-lg bg-cream-50 hover:bg-gold-50 transition"
-          >
-            <RefreshCw className="w-3.5 h-3.5 text-gold-600" />
-            <span>Refresh Ledger</span>
-          </button>
+          <div className="flex items-center space-x-2">
+            <button
+              onClick={handleRunDunning}
+              disabled={runningDunning || overdueInvoices.length === 0}
+              className="text-xs bg-gradient-to-r from-rose-700 to-burgundy-900 hover:from-rose-600 hover:to-burgundy-800 text-gold-200 border border-gold-400/50 font-serif font-bold flex items-center space-x-1.5 px-3 py-1.5 rounded-lg shadow-sm transition active:scale-95 disabled:opacity-50 cursor-pointer"
+            >
+              <Zap className={`w-3.5 h-3.5 text-gold-400 ${runningDunning ? 'animate-bounce' : ''}`} />
+              <span>{runningDunning ? 'Executing Dunning...' : '⚡ Smart Dunning Chase'}</span>
+            </button>
+            <button
+              onClick={loadData}
+              className="text-xs text-burgundy-900 hover:text-burgundy-950 font-semibold flex items-center space-x-1 px-3 py-1.5 border border-gold-500/40 rounded-lg bg-cream-50 hover:bg-gold-50 transition"
+            >
+              <RefreshCw className="w-3.5 h-3.5 text-gold-600" />
+              <span>Refresh Ledger</span>
+            </button>
+          </div>
         </div>
+
+        {/* Smart Dunning Result Toast */}
+        {dunningResult && (
+          <div className="m-4 p-4 bg-rose-950/95 border border-gold-400/60 rounded-xl text-xs text-cream-100 shadow-cinematic animate-fade-in flex flex-col space-y-2">
+            <div className="flex justify-between items-center border-b border-gold-500/30 pb-2">
+              <div className="flex items-center space-x-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-400" />
+                <span className="font-serif font-bold text-gold-300">
+                  Automated Revenue Recovery Dispatch Complete:
+                </span>
+                <span>{dunningResult.message}</span>
+              </div>
+              <button onClick={() => setDunningResult(null)} className="text-gold-300 hover:text-white font-bold">✕</button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 pt-1 text-[11px]">
+              {dunningResult.actions_dispatched?.map((a: any, idx: number) => (
+                <div key={idx} className="bg-burgundy-900/80 p-2.5 rounded-lg border border-gold-500/20">
+                  <div className="font-bold text-cream-100 font-mono">{a.invoice_number} • ${a.amount_due}</div>
+                  <div className="text-gold-400 font-semibold">{a.dunning_stage}</div>
+                  <div className="text-cream-200/70 text-[10px] mt-0.5">{a.action_taken}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         {overdueInvoices.length === 0 ? (
           <div className="py-14 text-center text-cream-700 text-sm">
@@ -294,6 +371,82 @@ export const FinanceDashboard: React.FC<FinanceDashboardProps> = ({ onNavigateTo
             </table>
           </div>
         )}
+      </div>
+
+      {/* Enterprise Addon: Customer Health & Churn Risk Matrix */}
+      <div className="cream-card rounded-2xl overflow-hidden shadow-cinematic">
+        <div className="px-6 py-4.5 bg-gradient-to-r from-cream-100 to-cream-50 border-b border-gold-500/30 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+          <div>
+            <h2 className="text-base font-serif font-black text-burgundy-950 flex items-center space-x-2">
+              <HeartHandshake className="w-5 h-5 text-gold-600" />
+              <span>Customer Health & Churn Risk Predictor</span>
+            </h2>
+            <p className="text-xs text-cream-700 mt-0.5">
+              Machine-driven retention scoring factoring payment promptness, contract tenure, and overdue liabilities.
+            </p>
+          </div>
+          <span className="text-xs font-serif font-bold text-burgundy-900 bg-gold-200/50 px-3 py-1 rounded-full border border-gold-400/60">
+            PROACTIVE RETENTION AI
+          </span>
+        </div>
+
+        <div className="p-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {healthScores.map((c) => {
+            const isHigh = c.health_score >= 85;
+            const isMid = c.health_score >= 50 && c.health_score < 85;
+            return (
+              <div
+                key={c.customer_id}
+                className="bg-white border border-gold-500/25 rounded-xl p-4 shadow-sm hover:shadow-md transition flex flex-col justify-between"
+              >
+                <div>
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h4 className="font-serif font-bold text-burgundy-950 text-sm">{c.customer_name}</h4>
+                      <p className="text-[11px] text-cream-600">{c.company_name}</p>
+                    </div>
+                    <span
+                      className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border ${
+                        isHigh
+                          ? 'bg-emerald-100 text-emerald-800 border-emerald-300'
+                          : isMid
+                          ? 'bg-amber-100 text-amber-800 border-amber-300'
+                          : 'bg-rose-100 text-rose-800 border-rose-300'
+                      }`}
+                    >
+                      {c.risk_tier}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5 my-3">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-cream-700">Account Health Score:</span>
+                      <span className="font-mono font-bold text-burgundy-950">{c.health_score}/100</span>
+                    </div>
+                    {/* Progress Bar */}
+                    <div className="w-full bg-cream-200 h-2 rounded-full overflow-hidden">
+                      <div
+                        className={`h-full rounded-full ${
+                          isHigh ? 'bg-emerald-500' : isMid ? 'bg-amber-500' : 'bg-rose-500'
+                        }`}
+                        style={{ width: `${c.health_score}%` }}
+                      />
+                    </div>
+                    <div className="flex justify-between text-[11px] text-cream-600 pt-1">
+                      <span>Active Contracts: {c.active_subscriptions}</span>
+                      <span>Overdue Invoices: {c.overdue_invoices_count}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="pt-2.5 border-t border-gold-500/15 text-[11px] text-burgundy-900/90 flex items-start space-x-1.5">
+                  <ArrowUpRight className="w-3.5 h-3.5 text-gold-600 flex-shrink-0 mt-0.5" />
+                  <span><strong>AI Recommendation:</strong> {c.recommendation}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

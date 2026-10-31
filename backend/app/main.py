@@ -27,8 +27,8 @@ async def lifespan(app: FastAPI):
     yield
 
 app = FastAPI(
-    title="Brightloop Software - Subscription Management System",
-    description="One unified software platform that runs the full life of a subscription business",
+    title="Zebra5 - Subscription Management System",
+    description="One unified autonomous software platform that runs the full life of a subscription business",
     version="1.0.0",
     lifespan=lifespan
 )
@@ -72,7 +72,7 @@ def serve_spa(full_path: str):
     if os.path.exists(index_file):
         return FileResponse(index_file)
     return {
-        "system": "Brightloop Software Subscription Management System",
+        "system": "Zebra5 Subscription Management System",
         "status": "operational",
         "api_docs": "/docs",
         "frontend_build": "Run 'cd frontend; npm run build' to bundle UI"

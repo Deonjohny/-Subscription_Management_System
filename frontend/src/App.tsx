@@ -86,11 +86,11 @@ export const App: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-burgundy-950 via-burgundy-900 to-burgundy-950 flex items-center justify-center text-cream-50">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-gold-300 via-gold-500 to-gold-700 p-[1.5px] shadow-gold-glow animate-pulse">
-            <div className="w-full h-full bg-burgundy-950 rounded-[14px] flex items-center justify-center font-serif font-black text-2xl text-gold-300">
-              B
+            <div className="w-full h-full bg-burgundy-950 rounded-[14px] flex items-center justify-center font-serif font-black text-xl text-gold-300">
+              Z5
             </div>
           </div>
-          <span className="text-sm font-serif font-bold text-gold-300 tracking-wider">Initializing Brightloop Platform...</span>
+          <span className="text-sm font-serif font-bold text-gold-300 tracking-wider">Initializing Zebra5 Platform...</span>
         </div>
       </div>
     );
@@ -105,7 +105,7 @@ export const App: React.FC = () => {
       {!currentUser ? (
         <AuthModal onSuccess={handleLoginSuccess} />
       ) : (
-        <div className="min-h-screen bg-[#FBF7F0] flex flex-col font-sans selection:bg-gold-500 selection:text-burgundy-950">
+        <div className="min-h-screen bg-[#F8F6F1] flex flex-col font-sans selection:bg-gold-500 selection:text-burgundy-950 animate-fade-in">
           <Navbar
             currentUser={currentUser}
             currentTab={currentTab}
@@ -153,8 +153,8 @@ export const App: React.FC = () => {
       <footer className="bg-gradient-to-r from-burgundy-950 via-burgundy-900 to-burgundy-950 border-t border-gold-500/30 py-4.5 text-center text-xs text-cream-200/80 font-serif">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
           <div className="flex items-center space-x-2">
-            <span className="font-bold text-gold-300">Brightloop Software</span>
-            <span>• Subscription Management & Recurring Ledger OS</span>
+            <span className="font-bold text-gold-300">Zebra5 Software</span>
+            <span>• Autonomous Subscription & Billing OS</span>
           </div>
           <div className="text-gold-400/80 tracking-wide font-mono text-[11px]">
             Burgundy & Cream Edition • Gold Lined

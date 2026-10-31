@@ -3,7 +3,7 @@ import { api } from '../api';
 import { Invoice } from '../types';
 import {
   FileText, Send, Printer, DollarSign,
-  Search, Filter
+  Search, Filter, Download
 } from 'lucide-react';
 
 interface InvoicesViewProps {
@@ -160,6 +160,20 @@ export const InvoicesView: React.FC<InvoicesViewProps> = ({ initialInvoiceId }) 
             <option value="OVERDUE">Overdue Only</option>
             <option value="Cancelled">Cancelled</option>
           </select>
+          <button
+            onClick={async () => {
+              try {
+                await api.downloadInvoicesCSV();
+              } catch {
+                alert('Failed to export CSV ledger');
+              }
+            }}
+            className="cream-card hover:bg-gold-500 hover:text-burgundy-950 rounded-xl px-3.5 py-2.5 text-xs text-burgundy-950 font-serif font-bold flex items-center space-x-1.5 transition active:scale-95 border border-gold-400/60 cursor-pointer shadow-sm"
+            title="Download Full General Ledger as CSV"
+          >
+            <Download className="w-4 h-4 text-gold-600" />
+            <span>Export CSV</span>
+          </button>
         </div>
       </div>
 

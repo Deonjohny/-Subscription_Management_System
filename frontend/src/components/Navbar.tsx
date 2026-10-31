@@ -87,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 title="Experience 3D Three.js Cinematic Entry"
               >
                 <Sparkles className="w-3 h-3 text-gold-400 group-hover:text-burgundy-950" />
-                <span>3D CINEMA</span>
+                <span>3D ENTRANCE</span>
               </button>
             )}
             <button
@@ -111,13 +111,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onTabChange(isCustomer ? 'portal' : 'finance')}
           >
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-gold-300 via-gold-500 to-gold-700 p-[1.5px] shadow-gold-glow group-hover:scale-105 transition duration-300">
-              <div className="w-full h-full bg-burgundy-950 rounded-[10px] flex items-center justify-center font-serif font-black text-gold-300 text-xl tracking-widest">
-                B
+              <div className="w-full h-full bg-burgundy-950 rounded-[10px] flex items-center justify-center font-serif font-black text-gold-300 text-sm tracking-wider">
+                Z5
               </div>
             </div>
             <div>
               <span className="text-xl font-serif font-black tracking-wide gold-gradient-text">
-                Brightloop
+                Zebra5
               </span>
               <span className="text-xs font-semibold text-gold-400/90 ml-1.5 uppercase tracking-widest">
                 Subscription OS

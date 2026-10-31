@@ -9,15 +9,21 @@ interface CinematicEntryProps {
 export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
   const mountRef = useRef<HTMLDivElement>(null);
   const [isExiting, setIsExiting] = useState(false);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isIntroComplete, setIsIntroComplete] = useState(false);
+
+  useEffect(() => {
+    // Initial entrance iris sweep delay
+    const timer = setTimeout(() => setIsIntroComplete(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const container = mountRef.current;
     if (!container) return;
 
-    // 1. Scene & Camera Setup
+    // 1. Scene & Camera Setup with soft obsidian & burgundy fog
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x160306, 0.04);
+    scene.fog = new THREE.FogExp2(0x130306, 0.038);
 
     const camera = new THREE.PerspectiveCamera(
       45,
@@ -31,72 +37,72 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.15;
     container.appendChild(renderer.domElement);
 
-    // 2. Lighting setup (Burgundy & Gold)
-    const ambientLight = new THREE.AmbientLight(0x2C060C, 2.0);
+    // 2. Harmonious Lighting (Soft Obsidian Burgundy & Champagne Gold)
+    const ambientLight = new THREE.AmbientLight(0x220509, 2.2);
     scene.add(ambientLight);
 
-    const keyGoldLight = new THREE.PointLight(0xF1D885, 4.0, 50);
+    const keyGoldLight = new THREE.PointLight(0xF1D885, 3.6, 50);
     keyGoldLight.position.set(6, 6, 8);
     scene.add(keyGoldLight);
 
-    const fillBurgundyLight = new THREE.PointLight(0x9E1B32, 3.5, 50);
+    const fillBurgundyLight = new THREE.PointLight(0x7A1222, 3.0, 50);
     fillBurgundyLight.position.set(-7, -5, 6);
     scene.add(fillBurgundyLight);
 
-    const backRimLight = new THREE.DirectionalLight(0xD4AF37, 2.5);
+    const backRimLight = new THREE.DirectionalLight(0xC5A049, 2.2);
     backRimLight.position.set(0, 10, -6);
     scene.add(backRimLight);
 
-    // 3. Central 3D Geometry: The Brightloop Golden Torus Knot
-    const knotGeometry = new THREE.TorusKnotGeometry(2.3, 0.52, 220, 32, 2, 3);
+    // 3. Central 3D Geometry: The Zebra5 Golden Mobius Torus Knot
+    const knotGeometry = new THREE.TorusKnotGeometry(2.35, 0.52, 220, 32, 2, 3);
     const knotMaterial = new THREE.MeshStandardMaterial({
-      color: 0xD4AF37,
-      metalness: 0.92,
-      roughness: 0.18,
-      emissive: 0x4E0C17,
-      emissiveIntensity: 0.28,
+      color: 0xC5A049,
+      metalness: 0.90,
+      roughness: 0.20,
+      emissive: 0x36070E,
+      emissiveIntensity: 0.32,
     });
     const knotMesh = new THREE.Mesh(knotGeometry, knotMaterial);
     scene.add(knotMesh);
 
     // 4. Outer Celestial Orbiting Rings (Recurring cycles)
-    const ring1Geo = new THREE.TorusGeometry(4.3, 0.035, 16, 120);
+    const ring1Geo = new THREE.TorusGeometry(4.35, 0.032, 16, 120);
     const ringMat1 = new THREE.MeshStandardMaterial({
-      color: 0xF1D885,
+      color: 0xEAD08D,
       metalness: 0.85,
-      roughness: 0.2,
-      emissive: 0xD4AF37,
-      emissiveIntensity: 0.4,
+      roughness: 0.22,
+      emissive: 0xC5A049,
+      emissiveIntensity: 0.35,
     });
     const ring1 = new THREE.Mesh(ring1Geo, ringMat1);
     ring1.rotation.x = Math.PI / 3;
     scene.add(ring1);
 
-    const ring2Geo = new THREE.TorusGeometry(3.6, 0.025, 16, 120);
+    const ring2Geo = new THREE.TorusGeometry(3.65, 0.024, 16, 120);
     const ringMat2 = new THREE.MeshStandardMaterial({
-      color: 0xE5C365,
-      metalness: 0.9,
+      color: 0xD9B663,
+      metalness: 0.88,
       roughness: 0.25,
-      emissive: 0x7B1123,
-      emissiveIntensity: 0.3,
+      emissive: 0x5C0C18,
+      emissiveIntensity: 0.28,
     });
     const ring2 = new THREE.Mesh(ring2Geo, ringMat2);
     ring2.rotation.y = Math.PI / 4;
     scene.add(ring2);
 
-    // 5. Floating Gold Stardust Particles
-    const particleCount = 1400;
+    // 5. Floating Champagne Stardust Particles
+    const particleCount = 1300;
     const particleGeo = new THREE.BufferGeometry();
     const positions = new Float32Array(particleCount * 3);
     const scales = new Float32Array(particleCount);
 
     for (let i = 0; i < particleCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 30;
-      positions[i + 1] = (Math.random() - 0.5) * 20;
-      positions[i + 2] = (Math.random() - 0.5) * 25;
+      positions[i] = (Math.random() - 0.5) * 32;
+      positions[i + 1] = (Math.random() - 0.5) * 22;
+      positions[i + 2] = (Math.random() - 0.5) * 26;
       scales[i / 3] = Math.random() * 0.05 + 0.015;
     }
 
@@ -104,9 +110,9 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
 
     const particleMat = new THREE.PointsMaterial({
       color: 0xF1D885,
-      size: 0.08,
+      size: 0.075,
       transparent: true,
-      opacity: 0.75,
+      opacity: 0.70,
       blending: THREE.AdditiveBlending,
     });
     const particleSystem = new THREE.Points(particleGeo, particleMat);
@@ -133,12 +139,10 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
     };
     window.addEventListener('resize', handleResize);
 
-    // 7. Render Loop & Warp Transition
+    // 7. Render Loop & Entrance / Warp Transition
     let animationFrameId: number;
     let clock = new THREE.Clock();
     let exitingStartTime: number | null = null;
-
-    setIsLoaded(true);
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
@@ -149,18 +153,18 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
       targetY += (mouseY - targetY) * 0.05;
 
       // Base rotations
-      knotMesh.rotation.x = elapsedTime * 0.28 + targetY * 0.35;
-      knotMesh.rotation.y = elapsedTime * 0.35 + targetX * 0.45;
-      knotMesh.rotation.z = Math.sin(elapsedTime * 0.2) * 0.15;
+      knotMesh.rotation.x = elapsedTime * 0.26 + targetY * 0.32;
+      knotMesh.rotation.y = elapsedTime * 0.32 + targetX * 0.40;
+      knotMesh.rotation.z = Math.sin(elapsedTime * 0.2) * 0.12;
 
-      ring1.rotation.z = elapsedTime * 0.18;
-      ring1.rotation.x = Math.PI / 3 + targetY * 0.2;
-      ring2.rotation.z = -elapsedTime * 0.22;
-      ring2.rotation.y = Math.PI / 4 + targetX * 0.2;
+      ring1.rotation.z = elapsedTime * 0.16;
+      ring1.rotation.x = Math.PI / 3 + targetY * 0.18;
+      ring2.rotation.z = -elapsedTime * 0.20;
+      ring2.rotation.y = Math.PI / 4 + targetX * 0.18;
 
       // Particle floating drift
-      particleSystem.rotation.y = elapsedTime * 0.03;
-      particleSystem.rotation.x = Math.sin(elapsedTime * 0.05) * 0.05;
+      particleSystem.rotation.y = elapsedTime * 0.025;
+      particleSystem.rotation.x = Math.sin(elapsedTime * 0.05) * 0.04;
 
       // Warp exit camera fly-through
       if (isExiting) {
@@ -168,9 +172,9 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
         const exitDelta = elapsedTime - exitingStartTime;
 
         // Exponential zoom into the heart of the golden loop
-        camera.position.z -= exitDelta * exitDelta * 18;
-        knotMesh.rotation.z += exitDelta * 0.4;
-        knotMaterial.emissiveIntensity = THREE.MathUtils.lerp(knotMaterial.emissiveIntensity, 3.5, 0.1);
+        camera.position.z -= exitDelta * exitDelta * 20;
+        knotMesh.rotation.z += exitDelta * 0.45;
+        knotMaterial.emissiveIntensity = THREE.MathUtils.lerp(knotMaterial.emissiveIntensity, 3.2, 0.1);
 
         if (camera.position.z <= -2) {
           cancelAnimationFrame(animationFrameId);
@@ -178,8 +182,8 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
           return;
         }
       } else {
-        camera.position.x = targetX * 1.2;
-        camera.position.y = -targetY * 0.8;
+        camera.position.x = targetX * 1.1;
+        camera.position.y = -targetY * 0.75;
         camera.lookAt(0, 0, 0);
       }
 
@@ -223,60 +227,65 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
   }, []);
 
   return (
-    <div className={`fixed inset-0 z-50 overflow-hidden bg-[#160306] select-none transition-opacity duration-1000 ${isExiting ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
+    <div
+      className={`fixed inset-0 z-50 overflow-hidden bg-[#130306] select-none transition-all duration-1000 ${
+        isExiting
+          ? 'opacity-0 scale-105 pointer-events-none'
+          : isIntroComplete
+          ? 'opacity-100 scale-100'
+          : 'opacity-0 scale-98'
+      }`}
+    >
       {/* 3D WebGL Canvas Mount */}
       <div ref={mountRef} className="absolute inset-0 cursor-grab active:cursor-grabbing" />
 
-      {/* Cinematic Vignette & Radial Ambient Light */}
-      <div className="absolute inset-0 pointer-events-none bg-radial-gradient from-transparent via-[#2C060C]/35 to-[#160306]/95" />
+      {/* Cinematic Ambient Vignette - Balanced to not interrupt surroundings */}
+      <div className="absolute inset-0 pointer-events-none bg-radial-gradient from-transparent via-[#20050A]/40 to-[#130306]/95" />
 
       {/* Foreground UI Layer */}
       <div className="relative z-10 flex flex-col justify-between h-full p-8 md:p-14 max-w-7xl mx-auto">
-        {/* Top Header & Monogram */}
+        {/* Top Header with ZEBRA5 Crest */}
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3.5">
-            <div className="w-10 h-10 rounded-full border border-gold-400/40 bg-burgundy-900/80 flex items-center justify-center shadow-gold-glow">
-              <span className="font-serif font-black text-sm text-gold-300">BL</span>
+            <div className="w-11 h-11 rounded-2xl border border-gold-400/50 bg-gradient-to-br from-burgundy-900 to-burgundy-950 flex items-center justify-center shadow-gold-subtle">
+              <span className="font-serif font-black text-base text-gold-300 tracking-wider">Z5</span>
             </div>
             <div>
-              <div className="text-[10px] tracking-[0.3em] font-serif uppercase text-gold-400 font-bold">
-                EST. 2026 • BRIGHTLOOP
+              <div className="text-[11px] tracking-[0.35em] font-serif uppercase text-gold-400 font-bold">
+                EST. 2026 • ZEBRA5
               </div>
-              <div className="text-xs text-cream-200/70 font-sans tracking-wide">
-                Unified Subscription Infrastructure
+              <div className="text-xs text-cream-200/75 font-sans tracking-wide">
+                Autonomous Subscription OS & Recurring Ledger
               </div>
             </div>
           </div>
 
-          <div className="hidden md:flex items-center space-x-3 text-xs text-gold-400/80 bg-burgundy-950/80 px-4 py-1.5 rounded-full border border-gold-500/20 backdrop-blur-md">
+          <div className="hidden md:flex items-center space-x-3 text-xs text-gold-300/90 bg-burgundy-950/80 px-4 py-1.5 rounded-full border border-gold-500/25 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-medium tracking-wide">System Online • Zero Double-Billing Engine Active</span>
+            <span className="font-medium tracking-wide">Zebra5 Intelligence Engine Online</span>
           </div>
         </div>
 
         {/* Center Title Card & Cinematic Typography */}
-        <div className="my-auto max-w-3xl text-center md:text-left pt-12 md:pt-0">
+        <div className="my-auto max-w-3xl text-center md:text-left pt-8 md:pt-0">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-burgundy-900/70 border border-gold-500/30 text-gold-300 text-xs font-serif tracking-widest uppercase mb-5 backdrop-blur-md shadow-gold-subtle">
             <Sparkles className="w-3.5 h-3.5 text-gold-300" />
             <span>Autonomous Recurring Architecture</span>
           </div>
 
-          <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-cream-100 leading-[1.08] mb-6 drop-shadow-2xl">
-            BRIGHTLOOP <br />
-            <span className="gold-gradient-text drop-shadow-[0_4px_25px_rgba(212,175,55,0.35)]">
-              SOFTWARE
-            </span>
+          <h1 className="font-serif text-5xl sm:text-7xl md:text-8xl font-black tracking-tight text-cream-100 leading-[1.04] mb-5 drop-shadow-2xl">
+            ZEBRA<span className="gold-gradient-text drop-shadow-[0_4px_30px_rgba(212,175,55,0.4)]">5</span>
           </h1>
 
           <p className="text-cream-200/85 text-base sm:text-lg md:text-xl font-normal leading-relaxed max-w-2xl mb-8 font-sans drop-shadow">
-            Experience complete subscription autonomy. From quote templates and dynamic product variants to idempotent daily billing runs and instant financial intelligence.
+            The next-generation subscription operating system. Unifying products, quote templates, idempotent daily billing cycles, and sub-second financial intelligence.
           </p>
 
           {/* Key Value Feature Pills */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-10">
             <div className="bg-burgundy-950/60 border border-gold-500/20 p-3 rounded-xl backdrop-blur-md hover:border-gold-400/50 transition">
               <Zap className="w-4 h-4 text-gold-400 mb-1" />
-              <div className="text-[11px] font-bold text-cream-100">Idempotent Runs</div>
+              <div className="text-[11px] font-bold text-cream-100">Idempotent Engine</div>
               <div className="text-[10px] text-cream-200/60">Zero Skip Guarantee</div>
             </div>
             <div className="bg-burgundy-950/60 border border-gold-500/20 p-3 rounded-xl backdrop-blur-md hover:border-gold-400/50 transition">
@@ -287,12 +296,12 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
             <div className="bg-burgundy-950/60 border border-gold-500/20 p-3 rounded-xl backdrop-blur-md hover:border-gold-400/50 transition">
               <BarChart3 className="w-4 h-4 text-gold-400 mb-1" />
               <div className="text-[11px] font-bold text-cream-100">Financial Suite</div>
-              <div className="text-[10px] text-cream-200/60">&lt; 2s MRR/ARR Ledger</div>
+              <div className="text-[10px] text-cream-200/60">&lt; 15ms Response</div>
             </div>
             <div className="bg-burgundy-950/60 border border-gold-500/20 p-3 rounded-xl backdrop-blur-md hover:border-gold-400/50 transition">
               <ShieldCheck className="w-4 h-4 text-gold-400 mb-1" />
-              <div className="text-[11px] font-bold text-cream-100">Enterprise RBAC</div>
-              <div className="text-[10px] text-cream-200/60">Admin &bull; Staff &bull; Portal</div>
+              <div className="text-[11px] font-bold text-cream-100">Smart Dunning</div>
+              <div className="text-[10px] text-cream-200/60">Automated Recovery</div>
             </div>
           </div>
 
@@ -304,7 +313,7 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
             >
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               <Compass className="w-5 h-5 text-burgundy-950 group-hover:rotate-45 transition-transform" />
-              <span>Enter Command Center</span>
+              <span>Enter Zebra5 Command Center</span>
               <ArrowRight className="w-5 h-5 text-burgundy-950 group-hover:translate-x-1 transition-transform" />
             </button>
 
@@ -323,7 +332,7 @@ export const CinematicEntry: React.FC<CinematicEntryProps> = ({ onEnter }) => {
             Move your cursor across the screen to interact with the 3D Gold Möbius loop.
           </div>
           <div className="mt-2 sm:mt-0 font-serif tracking-widest text-gold-400/70">
-            CINEMATIC THREE.JS &bull; POWERED BY FASTAPI & REACT
+            ZEBRA5 SUBSCRIPTION OS &bull; FASTAPI + REACT + THREE.JS
           </div>
         </div>
       </div>

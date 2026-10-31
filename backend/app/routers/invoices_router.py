@@ -133,7 +133,7 @@ def print_invoice(
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Invoice {inv.invoice_number} - Brightloop Software</title>
+        <title>Invoice {inv.invoice_number} - Zebra5 Software</title>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;900&family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -142,17 +142,17 @@ def print_invoice(
                 font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                 margin: 0;
                 padding: 40px;
-                color: #2C060C;
-                background-color: #FAF5EC;
+                color: #1F0E12;
+                background-color: #F8F6F1;
             }}
             .invoice-wrapper {{
                 max-width: 860px;
                 margin: 0 auto;
-                background: #FFFDF9;
-                border: 2px solid #D4AF37;
+                background: #FFFFFF;
+                border: 1px solid rgba(197, 160, 73, 0.4);
                 border-radius: 12px;
                 padding: 40px;
-                box-shadow: 0 10px 30px rgba(78, 12, 23, 0.08);
+                box-shadow: 0 10px 30px rgba(30, 4, 7, 0.05);
             }}
             .header {{
                 display: flex;
@@ -280,9 +280,9 @@ def print_invoice(
             <button class="print-btn" onclick="window.print()">🖨️ Print Invoice</button>
             <div class="header">
                 <div>
-                    <div class="logo">Brightloop<span>Software</span></div>
+                    <div class="logo">Zebra<span>5</span></div>
                     <p style="margin: 4px 0; color: #4E0C17; font-size: 13px; font-weight: 500;">Cloud Subscriptions & Enterprise Solutions</p>
-                    <p style="margin: 4px 0; color: #7B1123; font-size: 12px;">billing@brightloop.io | +1 (800) 555-LOOP</p>
+                    <p style="margin: 4px 0; color: #7B1123; font-size: 12px;">billing@zebra5.io | +1 (800) 555-ZEBRA</p>
                 </div>
                 <div class="invoice-title">
                     <h1>INVOICE</h1>
@@ -354,7 +354,7 @@ def print_invoice(
 
         <div style="border-top: 1px solid #E5C365; padding-top: 20px; font-size: 13px; color: #4E0C17;">
             <p><strong>Payment Terms:</strong> Please settle outstanding balances by due date via Bank Transfer or Portal Credit Card payment.</p>
-            <p>Thank you for choosing Brightloop Software!</p>
+            <p>Thank you for choosing Zebra5 Software!</p>
         </div>
         </div>
     </body>

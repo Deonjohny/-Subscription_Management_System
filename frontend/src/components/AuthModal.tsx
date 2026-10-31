@@ -136,15 +136,15 @@ export const AuthModal: React.FC<AuthModalProps> = ({ onSuccess }) => {
         {/* Header with Regal Monogram */}
         <div className="bg-gradient-to-br from-burgundy-950 via-burgundy-900 to-burgundy-950 p-7 text-center border-b border-gold-500/30">
           <div className="w-14 h-14 rounded-2xl bg-gradient-to-tr from-gold-300 via-gold-500 to-gold-700 p-[1.5px] mx-auto shadow-gold-glow">
-            <div className="w-full h-full bg-burgundy-950 rounded-[14px] flex items-center justify-center font-serif font-black text-2xl text-gold-300 tracking-wider">
-              B
+            <div className="w-full h-full bg-burgundy-950 rounded-[14px] flex items-center justify-center font-serif font-black text-xl text-gold-300 tracking-wider">
+              Z5
             </div>
           </div>
           <h1 className="text-2xl font-serif font-black mt-3.5 gold-gradient-text tracking-wide">
-            Brightloop Software
+            Zebra5 Software
           </h1>
           <p className="text-cream-200/90 text-xs mt-1 font-serif tracking-widest uppercase">
-            Subscription OS & Recurring Ledger
+            Autonomous Subscription OS & Recurring Ledger
           </p>
         </div>
 

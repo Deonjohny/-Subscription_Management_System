@@ -170,4 +170,24 @@ export const api = {
     const res = await client.post('/finance/trigger-billing-day', null, { params: { target_date } });
     return res.data;
   },
+  downloadInvoicesCSV: async () => {
+    const res = await client.get('/finance/export-invoices-csv', { responseType: 'blob' });
+    const blob = new Blob([res.data], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `brightloop_ledger_${new Date().toISOString().split('T')[0]}.csv`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  },
+  runSmartDunning: async () => {
+    const res = await client.post('/finance/dunning/chase-all');
+    return res.data;
+  },
+  getCustomerHealthScores: async () => {
+    const res = await client.get('/finance/customer-health');
+    return res.data;
+  },
 };
