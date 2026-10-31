@@ -11,6 +11,7 @@ interface NavbarProps {
   onTabChange: (tab: string) => void;
   onLogout: () => void;
   onQuickLogin: (email: string) => void;
+  onTriggerCinematic?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -19,6 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onTabChange,
   onLogout,
   onQuickLogin,
+  onTriggerCinematic,
 }) => {
   const isAdmin = currentUser?.role === 'admin';
   const isStaff = currentUser?.role === 'staff';
@@ -78,6 +80,16 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {currentUser.role}
               </span>
             </div>
+            {onTriggerCinematic && (
+              <button
+                onClick={onTriggerCinematic}
+                className="px-2.5 py-0.5 rounded-full bg-burgundy-900/90 hover:bg-gold-500 hover:text-burgundy-950 text-gold-300 border border-gold-500/40 text-[11px] font-serif font-bold tracking-wider flex items-center space-x-1 transition duration-200 shadow-gold-subtle ml-1"
+                title="Experience 3D Three.js Cinematic Entry"
+              >
+                <Sparkles className="w-3 h-3 text-gold-400 group-hover:text-burgundy-950" />
+                <span>3D CINEMA</span>
+              </button>
+            )}
             <button
               onClick={onLogout}
               className="text-cream-300 hover:text-gold-300 flex items-center space-x-1 transition duration-150 ml-2"

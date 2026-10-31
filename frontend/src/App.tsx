@@ -10,12 +10,14 @@ import { PlansDiscountsView } from './components/PlansDiscountsView';
 import { StaffManagerView } from './components/StaffManagerView';
 import { CustomerPortal } from './components/CustomerPortal';
 import { AuthModal } from './components/AuthModal';
+import { CinematicEntry } from './components/CinematicEntry';
 
 export const App: React.FC = () => {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const [loadingUser, setLoadingUser] = useState(true);
   const [currentTab, setCurrentTab] = useState<string>('finance');
   const [targetInvoiceId, setTargetInvoiceId] = useState<number | null>(null);
+  const [showCinematic, setShowCinematic] = useState<boolean>(true);
 
   // Check existing session
   useEffect(() => {
@@ -94,22 +96,27 @@ export const App: React.FC = () => {
     );
   }
 
-  if (!currentUser) {
-    return <AuthModal onSuccess={handleLoginSuccess} />;
-  }
-
   return (
-    <div className="min-h-screen bg-[#FBF7F0] flex flex-col font-sans selection:bg-gold-500 selection:text-burgundy-950">
-      <Navbar
-        currentUser={currentUser}
-        currentTab={currentTab}
-        onTabChange={(tab) => {
-          if (tab !== 'invoices') setTargetInvoiceId(null);
-          setCurrentTab(tab);
-        }}
-        onLogout={handleLogout}
-        onQuickLogin={handleQuickLogin}
-      />
+    <>
+      {showCinematic && (
+        <CinematicEntry onEnter={() => setShowCinematic(false)} />
+      )}
+
+      {!currentUser ? (
+        <AuthModal onSuccess={handleLoginSuccess} />
+      ) : (
+        <div className="min-h-screen bg-[#FBF7F0] flex flex-col font-sans selection:bg-gold-500 selection:text-burgundy-950">
+          <Navbar
+            currentUser={currentUser}
+            currentTab={currentTab}
+            onTabChange={(tab) => {
+              if (tab !== 'invoices') setTargetInvoiceId(null);
+              setCurrentTab(tab);
+            }}
+            onLogout={handleLogout}
+            onQuickLogin={handleQuickLogin}
+            onTriggerCinematic={() => setShowCinematic(true)}
+          />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {currentUser.role === 'customer' ? (
@@ -152,7 +159,9 @@ export const App: React.FC = () => {
           </div>
         </div>
       </footer>
-    </div>
+        </div>
+      )}
+    </>
   );
 };
 
